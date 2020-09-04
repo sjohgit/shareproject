@@ -1,0 +1,23 @@
+휴멤버테이블
+
+create table huemember(
+id varchar2(100) not null,
+pw varchar2(100) not null,
+checkpw varchar2(100) not null,
+name varchar2(100) not null,
+phone number not null,
+email varchar2(100) not null
+);
+
+
+휴보드테이블
+
+
+create table hueboard(
+num number not null,
+writer varchar2(100) not null,
+subject varchar2(100) not null,
+content varchar2(100) not null,
+reg_date date,
+readcount num
+);
