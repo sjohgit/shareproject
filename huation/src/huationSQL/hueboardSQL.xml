@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+   PUBLIC    "-//mybatis.org//DTD Mapper3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+   
+   
+<mapper namespace="hueboard">
+
+	<select id="find" resultType="int">  
+		select count(num) from hueboard
+	</select>
+
+	<insert id="insert" parameterType="BoardDTO">  
+		insert into hueboard values(hueboard_seq.NEXTVAL,#{writer},#{subject},#{content},sysdate,#{readcount})
+	</insert>
+	
+	<select id="amount" resultType="int"> 
+		select count(*)from hueboard 
+	</select>	
+	
+	<select id="boardlist" resultType="BoardDTO" parameterType="hashmap"> <!-- 게시물 나열하기 -->
+		 <![CDATA[select * from (select num,writer,subject,reg_date,content,readcount,rownum r from
+		(select * from hueboard order by num desc) order by num desc) where r>=#{start} and r<=#{end}]]>
+	</select>   	
+
+	<update id="addreadcount" parameterType="int"> <!-- 게시물 조회수 업데이트 -->
+		update hueboard set readcount=readcount+1 where num=#{num}
+	</update>
+	
+	<select id="sel_notice" resultType="BoardDTO" parameterType="int">
+		select * from hueboard where num=#{num}
+	</select>	
+	
+	<update id="modifynotice" parameterType="BoardDTO"> <!-- 게시물 수정 -->
+		update hueboard set writer=#{writer}, subject=#{subject}, content=#{content} where num=#{num}
+	</update>
+	
+	<delete id="deletenotice" parameterType="int"> <!-- 삭제 -->
+		delete from hueboard where num=#{num}
+	</delete>
+	
+	<select id="excel" parameterType="BoardDTO" resultType="BoardDTO">
+		select * from hueboard	
+	</select>	
+
+
+
+
+</mapper>
