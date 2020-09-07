@@ -27,11 +27,7 @@ import huation.model.member.MemberDTO;
 	@Autowired
 	private MemberDAO dao = null;
 	
-		@RequestMapping("/huationMain.huation")
-		public String huationMain() {
 
-		return "/member/huationMain";
-	}
 		@RequestMapping("/huemember.huation")
 		public String huemember() {
 
@@ -98,5 +94,3 @@ import huation.model.member.MemberDTO;
 		
 
 }	
-
-

@@ -1,3 +1,4 @@
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file = "/WEB-INF/views/member/huationMain.jsp" %>
@@ -6,10 +7,8 @@
 <script>
 	<c:if test="${check == 1}">
 		alert("안녕하세요.");
-		document.location.href = '/huation/member/huationMain.huation';
+		document.location.href = '/huation/huation.huation';
 	</c:if>
-
-
 	
 <c:if test="${check == 0}">
 	
@@ -18,4 +17,3 @@
 		
 </c:if>
 </script>
-

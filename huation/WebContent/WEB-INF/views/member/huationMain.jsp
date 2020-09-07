@@ -72,15 +72,18 @@ a:hover{color:black; text-decoration: none;}
 	<c:if test="${sessionScope.memId == null}">
     	<input type="button" value="로그인" style="float:right;"
        		onclick="document.location.href='/huation/member/huelogin.huation'">
-       	
-        <input type="button" value="회원가입" style="float:right;"
+       	<input type="button" value="회원가입" style="float:right;"
        		onclick="document.location.href='/huation/member/huemember.huation'">
+       		    <input type="button" value="메인으로" style="float:right;"
+       		onclick="document.location.href='/huation/huation.huation'">
     </c:if>
     
     <c:if test="${sessionScope.memId != null}">
     
     <li>${sessionScope.memId}님 안녕하세요</li>
-             <input type="button" value="로그아웃" style="float:right;"
+    	<input type="button" value="메인으로" style="float:right;"
+       		onclick="document.location.href='/huation/huation.huation'">
+        <input type="button" value="로그아웃" style="float:right;"
        onclick="document.location.href='/huation/member/huelogout.huation'">
     </c:if>  
        
@@ -105,5 +108,5 @@ a:hover{color:black; text-decoration: none;}
  
     </ul>
   </nav>
-  
+  <h1 align = "center">${serverTime }</h1>
 

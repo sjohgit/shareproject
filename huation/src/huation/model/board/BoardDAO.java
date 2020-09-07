@@ -59,8 +59,8 @@ public class BoardDAO implements BoardDAOImpl{
 		
 	}
 	@Override
-	public List<BoardDTO> excellist(BoardDTO dto) {
-		List<BoardDTO> excellist = sqlSession.selectList("hueboard.excel",dto);
+	public List<BoardDTO> excellist() {
+		List<BoardDTO> excellist = sqlSession.selectList("hueboard.excelselect");
 		
 		return excellist;
 		

@@ -5,7 +5,7 @@ id varchar2(100) not null,
 pw varchar2(100) not null,
 checkpw varchar2(100) not null,
 name varchar2(100) not null,
-phone number not null,
+phone varchar2(100) not null,
 email varchar2(100) not null
 );
 

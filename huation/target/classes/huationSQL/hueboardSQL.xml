@@ -39,9 +39,10 @@
 		delete from hueboard where num=#{num}
 	</delete>
 	
-	<select id="excel" parameterType="BoardDTO" resultType="BoardDTO">
-		select * from hueboard	
-	</select>	
+ 	<select id="excelselect"  resultType="BoardDTO">
+		select * from (select num,writer,subject,reg_date,content,readcount from
+		(select * from hueboard order by num desc) order by num desc)
+	</select>	 
 
 
 

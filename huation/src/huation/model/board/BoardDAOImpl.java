@@ -10,7 +10,7 @@ public interface BoardDAOImpl {
 	public int addreadcount(int num);
 	public void update(BoardDTO dto);
 	public void delete(int num);
-	public List<BoardDTO> excellist(BoardDTO dto);
+	public List<BoardDTO> excellist();
 	
 	
 

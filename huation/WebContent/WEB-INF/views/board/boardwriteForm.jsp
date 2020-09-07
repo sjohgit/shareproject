@@ -52,8 +52,8 @@ table.type11 td {
 		
 		<tr>
 			<th width="100" align="center">작성자</th>
-			<td width="330"> ${ sessionScope.id }
-				<input type="hidden" size="10" maxlength="10" name="writer" value=${ sessionScope.id }>
+			<td width="330"> ${ sessionScope.memId }
+				<input type="hidden" size="10" maxlength="10" name="writer" value=${ sessionScope.memId }>
 			</td>
 
 		</tr>

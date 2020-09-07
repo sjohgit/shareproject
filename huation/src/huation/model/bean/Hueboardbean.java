@@ -1,11 +1,14 @@
 package huation.model.bean;
 
+
 import java.text.SimpleDateFormat;
+
 import java.util.List;
-import java.util.Map;
+
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -32,7 +35,7 @@ public class Hueboardbean {
 			pageNum = "1";
 		}
 
-		int pageSize = 10;
+		int pageSize = 5;
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 		int currentPage = Integer.parseInt(pageNum);
 		int start = (currentPage - 1) * pageSize + 1;
@@ -139,16 +142,14 @@ public class Hueboardbean {
 	return "/board/boarddeletePro";
 }
 	@RequestMapping("/downExcelForm.huation")
-	public String downExcelForm (HttpServletRequest request,BoardDTO dto,Map modelMap)throws Exception {
-		List excellist = dao.excellist(dto);
+	public String downExcelForm (HttpServletRequest request,BoardDTO dto)throws Exception {
+		List<BoardDTO> excellist = dao.excellist();
 		request.setAttribute("excellist", excellist);
-		System.out.println(excellist);
 		
 		return "/board/downExcelForm";
 }
 
-	
-		
-	}
+}
+
 	
 

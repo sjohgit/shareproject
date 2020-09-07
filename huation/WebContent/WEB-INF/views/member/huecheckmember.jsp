@@ -15,7 +15,7 @@
 </c:if>
 
 <c:if test="${check==1}">
-	<form method = "post" action ="/huation/work/huecheckmember.huation">
+	<form method = "post" action ="/huation/member/huecheckmember.huation">
 		${memId}는 이미 사용중인 아이디입니다 <br />
 	
 	<input type="text" size="10" maxlength="12" name="id" id="id">
