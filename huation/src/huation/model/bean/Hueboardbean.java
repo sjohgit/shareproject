@@ -1,11 +1,12 @@
 package huation.model.bean;
 
 
+import java.io.File;
 import java.text.SimpleDateFormat;
-
+import java.util.Iterator;
 import java.util.List;
 
-
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 
 
@@ -13,7 +14,12 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.sun.org.apache.xalan.internal.xsltc.compiler.util.Util;
 
 import huation.model.board.BoardDAO;
 import huation.model.board.BoardDTO;
@@ -148,7 +154,87 @@ public class Hueboardbean {
 		
 		return "/board/downExcelForm";
 }
+	@RequestMapping("/uploadExcelForm.huation")
+	public String uploadExcelForm (BoardDTO dto){
+	
+		return "/board/uploadExcelForm";
+}
+	
+//	   @ResponseBody
+//	   @RequestMapping(value = "uploadExcelFile.huation", method = RequestMethod.POST)
+//	    public String uploadExcelFile(MultipartHttpServletRequest request) {
+//	        MultipartFile file = null;
+//	        Iterator<String> iterator = request.getFileNames();
+//	        if(iterator.hasNext()) {
+//	            file = request.getFile(iterator.next());
+//	            }
+//	        List<BoardDTO> list = dao.uploadExcelFile(file);
+//	        
+//	        request.setAttribute("list", list);
+//	        return "jsonView";
+//	   	}
 
+		@RequestMapping("/uploadExcellistForm.huation")
+		public String uploadExcellistForm (MultipartHttpServletRequest request){
+			// form에서 전달받은 파일
+			MultipartFile excelFile = request.getFile("excelfile");
+			// 파일원본 이름
+			String orgName = excelFile.getOriginalFilename();
+			// 확장자 따옴.
+			String ext = orgName.substring(orgName.lastIndexOf(".")+1);
+			// 경로설정
+			String file = request.getServletContext().getRealPath("User/file/excel");
+			
+			
+
+			
+			String excelname = orgName;
+			System.out.println("excelname:"+excelname);
+			
+			File orgExcelfile = new File (excelname);
+			
+			System.out.println("orgExcelfile:"+excelname);
+			try {
+				excelFile.transferTo(orgExcelfile);
+				dao.uploadExcelFile(orgExcelfile);
+				
+			}catch(Exception e){
+				
+				e.printStackTrace();
+			}
+			
+//			ServletContext application = request.getServletContext();
+//			String path = application.getRealPath("resources/file/excel");
+//			String userFileName = excelFile.getOriginalFilename();
+			
+
+//			try {
+//				File file = new File(path, userFileName);
+//				excelFile.transferTo(file);
+//				
+//			} catch (IOException ex) {
+//				ex.printStackTrace();
+//			}
+//			
+			
+			
+			
+			
+			
+			
+			
+	
+			
+		
+			
+	     
+	        
+	        
+	        
+	       
+	        
+			return "/board/uploadExcellistForm";
+	}
 }
 
 	

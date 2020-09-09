@@ -45,6 +45,7 @@ table.type11 td {
 		<td>
 			<a href="boardwriteForm.huation">글쓰기</a>
 			<a href="downExcelForm.huation">엑셀로 내려받기</a>
+			<a href="uploadExcelForm.huation">DB로 저장하기</a>
 		</td>
 	</tr>
 </table>

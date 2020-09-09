@@ -1,9 +1,24 @@
 package huation.model.board;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import org.apache.poi.hssf.usermodel.HSSFCell;
+import org.apache.poi.hssf.usermodel.HSSFRow;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.openxml4j.opc.OPCPackage;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFCell;
+import org.apache.poi.xssf.usermodel.XSSFRow;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.mybatis.spring.SqlSessionTemplate;
+import org.springframework.web.multipart.MultipartFile;
 
 public class BoardDAO implements BoardDAOImpl{
 	private SqlSessionTemplate sqlSession = null;
@@ -65,6 +80,32 @@ public class BoardDAO implements BoardDAOImpl{
 		return excellist;
 		
 	}
+	public void uploadExcelFile(File orgExcelfile){
+		
+		ExcelReadOption excelReadOption = new ExcelReadOption();
+		excelReadOption.setFilePath(orgExcelfile.getAbsolutePath());
+		excelReadOption.setOutputColumns("A","B","C");
+		excelReadOption.setStartRow(2);
+        
+		BoardDTO dto = new BoardDTO();
+		
+		 List<Map<String, String>>excelContent = ExcelRead.read(excelReadOption);
 
-
+		
+		for (Map<String, String> article : excelContent) {
+			
+			String writer = article.get("A");
+			String title = article.get("B");
+			String content = article.get("C");
+			
+			if (title != null && writer != null && content != null) {
+				dto.setSubject(title);
+				dto.setWriter(writer);
+				dto.setContent(content);
+				sqlSession.insert("hueboard.insert",dto);
+				}			
+			}
+      
+         
+    }
 }
