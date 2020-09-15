@@ -1,6 +1,6 @@
 휴멤버테이블
 
-create table huemember(
+create table SJ_huemember(
 id varchar2(100) not null,
 pw varchar2(100) not null,
 checkpw varchar2(100) not null,
@@ -9,15 +9,37 @@ phone varchar2(100) not null,
 email varchar2(100) not null
 );
 
-
+ 
 휴보드테이블
 
 
-create table hueboard(
+create table SJ_hueboard(
 num number not null,
 writer varchar2(100) not null,
+file varchar2(100),
 subject varchar2(100) not null,
 content varchar2(100) not null,
 reg_date date,
-readcount num
+readcount number,
+ref number,
+re_step number,
+re_level number
+);
+ 
+시퀀스
+
+create sequence hueboard_seq
+increment by 1
+start with 0
+minvalue 0
+nocycle
+nocache;
+
+댓글테이블
+create table SJ_hueboardcomment(
+num number,
+renum number primary key,
+writer varchar2(100),
+content varchar2(1000),
+reg_date date
 );

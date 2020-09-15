@@ -7,44 +7,96 @@
 <mapper namespace="hueboard">
 
 	<select id="find" resultType="int">  
-		select count(num) from hueboard
+		select count(num) from SJ_hueboard
 	</select>
 
 	<insert id="insert" parameterType="BoardDTO">  
-		insert into hueboard values(hueboard_seq.NEXTVAL,#{writer},#{subject},#{content},sysdate,#{readcount})
+		INSERT INTO 
+		SJ_hueboard VALUES
+		(hueboard_seq.NEXTVAL,
+		#{writer},
+		#{files},
+		#{subject},
+		#{content},
+		sysdate,
+		#{readcount},
+		#{ref},
+		#{re_level},
+		#{re_step})
+	</insert>
+	
+	<insert id="excelinsert" parameterType="BoardDTO">  
+		insert into SJ_hueboard (num, writer, subject, content,reg_date,readcount)values(hueboard_seq.NEXTVAL,#{writer},#{subject},#{content},sysdate,#{readcount})
 	</insert>
 	
 	<select id="amount" resultType="int"> 
-		select count(*)from hueboard 
+		select count(*)from SJ_hueboard 
 	</select>	
 	
 	<select id="boardlist" resultType="BoardDTO" parameterType="hashmap"> <!-- 게시물 나열하기 -->
-		 <![CDATA[select * from (select num,writer,subject,reg_date,content,readcount,rownum r from
-		(select * from hueboard order by num desc) order by num desc) where r>=#{start} and r<=#{end}]]>
+		 <![CDATA[select * from (select num,writer,subject,reg_date,content,ref,re_step,readcount,rownum r from
+		(select * from SJ_hueboard order by num desc) order by num desc) where r>=#{start} and r<=#{end}]]>
 	</select>   	
 
 	<update id="addreadcount" parameterType="int"> <!-- 게시물 조회수 업데이트 -->
-		update hueboard set readcount=readcount+1 where num=#{num}
+		update SJ_hueboard set readcount=readcount+1 where num=#{num}
 	</update>
 	
 	<select id="sel_notice" resultType="BoardDTO" parameterType="int">
-		select * from hueboard where num=#{num}
+		select * from SJ_hueboard where num=#{num}
 	</select>	
 	
 	<update id="modifynotice" parameterType="BoardDTO"> <!-- 게시물 수정 -->
-		update hueboard set writer=#{writer}, subject=#{subject}, content=#{content} where num=#{num}
+		update SJ_hueboard set writer=#{writer},files=#{files}, subject=#{subject}, content=#{content} where num=#{num}
 	</update>
 	
 	<delete id="deletenotice" parameterType="int"> <!-- 삭제 -->
-		delete from hueboard where num=#{num}
+		delete from SJ_hueboard where num=#{num}
 	</delete>
 	
  	<select id="excelselect"  resultType="BoardDTO">
 		select * from (select num,writer,subject,reg_date,content,readcount from
-		(select * from hueboard order by num desc) order by num desc)
+		(select * from SJ_hueboard order by num desc) order by num desc)
 	</select>	 
 
 
+
+<!-- 게시판에 대한 댓글 -->
+	<select id="findcomment" parameterType="int" resultType="int"> <!-- num값 메기기 -->
+		select count(renum) from hueboardcomment where num=#{num}
+	</select>
+	
+	<insert id="commentinsert" parameterType="CommentDTO"> <!-- 인서트 -->
+		insert into hueboardcomment values(#{num},#{renum},#{writer},#{content},sysdate)
+	</insert>
+	  
+	<select id="commentamount" resultType="int"> <!-- 댓글의 갯수 표현 -->
+		select count(*) from hueboardcomment 
+	</select>
+	
+	<select id="commentlist" resultType="CommentDTO" parameterType="hashmap">
+		<![CDATA[select * from (select num,renum,writer,content,reg_date,rownum r from
+		(select * from hueboardcomment where num=#{num} order by renum desc) order by renum desc) where r>= #{start} and r <= #{end} and num=#{num} ]]>
+	</select>
+	
+	<delete id="deletecomment" parameterType="hashmap"> <!-- 삭제 -->
+		delete from hueboardcomment where renum=#{renum} and num=#{num}
+	</delete>
+	<delete id="deleteinterview2" parameterType="int"> <!-- num 게시판 댓글삭제 -->
+		delete from hueboardcomment where num=#{num}
+	</delete>
+	
+	
+	
+	<!-- 답글쿼리 -->
+
+	<update id="updateRestep" parameterType="hashmap">
+		UPDATE sj_hueboard
+		SET re_step = re_step + 1
+		WHERE ref = #{ref} AND re_step = #{re_step}
+		
+			
+	</update>
 
 
 </mapper>

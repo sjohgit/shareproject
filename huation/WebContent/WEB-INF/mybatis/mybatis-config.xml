@@ -11,6 +11,10 @@
 		
 		<typeAlias type="huation.model.board.BoardDTO"
 			alias="BoardDTO" />
+			
+		<typeAlias type="huation.model.board.CommentDTO"
+			alias="CommentDTO" />
+			
 	</typeAliases>
 
 	

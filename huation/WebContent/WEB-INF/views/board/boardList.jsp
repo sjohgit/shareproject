@@ -72,8 +72,21 @@ table.type11 td {
 			<c:set var="number" value="${number}" />
 			<tr height="30">
 				<td align="center" width="50">${a.num}</td>
-				<td align="center" width="100">
-				<a href="boardcontent.huation?num=${a.num}&pageNum=${currentPage}">${a.subject}</a>
+			<c:if test="${a.re_step == 0}">
+				<td align="left" width="100">
+					<a href="boardcontent.huation?num=${a.num}&pageNum=${currentPage}"/>${a.subject}
+				</td>
+			</c:if>
+			<c:if test="${a.re_step > 0}">
+			 	<td align="left" width="100">
+			 		
+				<c:forEach begin="1" end="${a.re_step}">
+                            &nbsp;&nbsp; <!-- 답변글일경우 글 제목 앞에 공백을 준다. -->
+                 </c:forEach>
+                        <span>RE : </span><a href="boardcontent.huation?num=${a.num}&pageNum=${currentPage}"/>${a.subject}
+                	
+                </td>        
+            </c:if>				
 				<td align="center" width="150">${a.writer}</td>
 				<td align="center" width="100">${a.reg_date}</td>
 				<td align="center" width="50">${a.readcount}</td>
@@ -100,3 +113,13 @@ table.type11 td {
 </c:if>
 </div>
 
+<%-- 		</td>
+				<td align="center" width="100">
+                   <c:if test="${a.re_level > 0}">
+                        <c:forEach begin="1" end="${a.re_level}">
+                            &nbsp;&nbsp; <!-- 답변글일경우 글 제목 앞에 공백을 준다. -->
+                        </c:forEach>
+                        RE : 
+                    </c:if>				
+				</td>
+				 --%>

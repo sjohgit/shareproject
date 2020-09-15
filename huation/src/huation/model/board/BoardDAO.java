@@ -39,6 +39,18 @@ public class BoardDAO implements BoardDAOImpl{
 		sqlSession.insert("hueboard.insert",dto);
 	}
 	@Override
+	public void excelinsert(BoardDTO dto) {
+		int num = 0;
+		num = sqlSession.selectOne("hueboard.find");
+		
+		if(num == 0) {
+			num = 1;
+		}else {
+			num++;
+		}
+		sqlSession.insert("hueboard.excelinsert",dto);
+	}
+	@Override
 	public int noticecount() {
 		int count = (int)sqlSession.selectOne("hueboard.amount");
 		
@@ -102,10 +114,53 @@ public class BoardDAO implements BoardDAOImpl{
 				dto.setSubject(title);
 				dto.setWriter(writer);
 				dto.setContent(content);
-				sqlSession.insert("hueboard.insert",dto);
+				sqlSession.insert("hueboard.excelinsert",dto);
 				}			
 			}
       
          
     }
+	
+	//댓글
+	@Override
+	public void com_insert(CommentDTO dto) {
+		int renum = 0;
+		int num = dto.getNum();
+		renum = sqlSession.selectOne("hueboard.findcomment",dto);
+		renum++;
+		dto.setRenum(renum);
+		sqlSession.insert("hueboard.commentinsert",dto);
+	}
+	@Override
+	public List<CommentDTO> commentlist(int start, int end, int num) {
+		HashMap map = new HashMap();
+		map.put("start",start);
+		map.put("end", end);
+		map.put("num", num);
+		return sqlSession.selectList("hueboard.commentlist",map);
+	}
+	@Override
+	public int commentcount() {
+		int count = (int)sqlSession.selectOne("hueboard.commentamount");
+		
+		return count;
+	}
+	@Override
+	public void deletecomment(int num, int renum) {
+		HashMap map = new HashMap();
+		map.put("num", num);
+		map.put("renum", renum);
+		
+		sqlSession.delete("hueboard.deletecomment",map);
+	}
+	
+	//답글
+	@Override
+	public int re_stepcount(int ref, int re_step) {
+		HashMap map = new HashMap();
+		map.put("ref",ref);
+		map.put("re_step", re_step);
+		return sqlSession.update("hueboard.updateRestep",map);
+	}
+
 }

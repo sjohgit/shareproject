@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ include file = "//WEB-INF/views/member/huationMain.jsp" %>  
 <head>
 <style type="text/css">
 table.type11 {
@@ -41,7 +42,10 @@ table.type11 td {
 <div align="center">
 <br>
 <div align="centent">
-<form method="post" name="boardupdateForm" action="/huation/board/boardupdatePro.huation?pageNum=${pageNum}">
+<form method="post" 
+enctype="multipart/form-data" 
+name="boardupdateForm" 
+action="/huation/board/boardupdatePro.huation?pageNum=${pageNum}">
 <c:forEach var ="c" items="${updatelist}">
 	<table class="type11" width="400"  cellspacing="0" cellpadding="0" align="center">
   		<tr>
@@ -51,6 +55,13 @@ table.type11 td {
        			<input type="hidden" name="writer" value="${c.getWriter()}">
 	   			<input type="hidden" name="num" value="${c.getNum()}">
 	   		</td>
+  		</tr>
+  		<tr>
+    		<th  width="70" align="center" >첨부파일</th>
+    		<td align="left" width="330">
+       			<input type="text" size="40" maxlength="50" name="oldfile" value="${c.getFiles()}" disabled>
+       			<input type="file" name="file"/>
+       		</td> 
   		</tr>
   		<tr>
     		<th  width="70" align="center" >제 목</th>

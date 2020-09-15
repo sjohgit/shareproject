@@ -14,6 +14,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class Huebean {
 	@RequestMapping("/huation")
 	public String huationMain(Locale locale,HttpServletRequest request) {
+		String memId = request.getParameter("memId");
+		String pw = request.getParameter("pw");
+		request.setAttribute("memId", memId);
+		request.setAttribute("pw", pw);
 		Date date = new Date();
 		DateFormat dateFormat =DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
 		String formattedDate = dateFormat.format(date);

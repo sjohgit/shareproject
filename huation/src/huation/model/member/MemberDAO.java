@@ -1,6 +1,7 @@
 package huation.model.member;
 
 import java.util.HashMap;
+import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
 
@@ -31,6 +32,19 @@ public class MemberDAO implements MemberDAOImpl{
 		
 		int check = (int)sqlSession.selectOne("huemember.logincheck",dto);
 		return check;
+	}
+	//개인정보수정
+	@Override
+	public List<MemberDTO> sel_member(String id) {
+		List <MemberDTO> list = sqlSession.selectList("huemember.sel_member",id);
+		
+		return list;
+	}
+
+	@Override
+	public void memberupdate(MemberDTO dto) {
+		sqlSession.update("huemember.memberupdate",dto);
+		
 	}
 
 
