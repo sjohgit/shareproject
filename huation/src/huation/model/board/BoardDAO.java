@@ -32,10 +32,13 @@ public class BoardDAO implements BoardDAOImpl{
 		num = sqlSession.selectOne("hueboard.find");
 		
 		if(num == 0) {
-			num = 1;
+			num = 1; 
+			
 		}else {
-			num++;
+			num++; 
+			
 		}
+		
 		sqlSession.insert("hueboard.insert",dto);
 	}
 	@Override
@@ -62,7 +65,24 @@ public class BoardDAO implements BoardDAOImpl{
 		HashMap map = new HashMap();
 		map.put("start",start);
 		map.put("end", end);
+
+		
+		
 		return sqlSession.selectList("hueboard.boardlist",map);
+	}
+	public List<BoardDTO> searchnoticelist(int start, int end, String keyword, String search_option ) {
+		HashMap map = new HashMap();
+		map.put("start",start);
+		map.put("end", end);
+		map.put("keyword", keyword);
+		map.put("search_option", search_option);
+		System.out.println("daoㅇ키워"+start);
+		System.out.println("daoㅇ키워"+end);
+		System.out.println("daoㅇ키워"+keyword);
+		System.out.println("daoㅇ서ㅇㅂ"+search_option);
+		
+		
+		return sqlSession.selectList("hueboard.boardsearchlist",map);
 	}
 	@Override
 	public List<BoardDTO> sel_notice(int num) {
@@ -156,11 +176,10 @@ public class BoardDAO implements BoardDAOImpl{
 	
 	//답글
 	@Override
-	public int re_stepcount(int ref, int re_step) {
-		HashMap map = new HashMap();
-		map.put("ref",ref);
-		map.put("re_step", re_step);
-		return sqlSession.update("hueboard.updateRestep",map);
+	public int re_stepcount(int ref) {
+	
+		
+		return sqlSession.update("hueboard.updateRestep",ref);
 	}
 
 }

@@ -37,7 +37,11 @@ public class Hueboardbean {
 	@RequestMapping("/boardList.huation")
 	public String boardList(HttpServletRequest request) {
 		String pageNum = request.getParameter("pageNum");
+	
+		
 
+		
+		
 		if (pageNum == null) {
 			pageNum = "1";
 		}
@@ -78,6 +82,56 @@ public class Hueboardbean {
 		}
 	return "/board/boardList";
 }
+	@RequestMapping("/boardsearchList.huation")
+	public String boardsearchList(HttpServletRequest request) {
+		String pageNum = request.getParameter("pageNum");
+		String keyword = request.getParameter("keyword");
+		String search_option = request.getParameter("search_option");
+		
+		System.out.println("ㅇ키워"+keyword);
+		System.out.println("ㅇ서ㅇㅂ"+search_option);
+		
+		
+		if (pageNum == null) {
+			pageNum = "1";
+		}
+
+		int pageSize = 10;
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+		int currentPage = Integer.parseInt(pageNum);
+		int start = (currentPage - 1) * pageSize + 1;
+		int end = currentPage * pageSize;
+		int number = 0;
+
+		int count = dao.noticecount();
+		request.setAttribute("count", count);
+
+		List searchlist = null;
+		if (count > 0) {
+			int pageCount = count / pageSize + (count % pageSize == 0 ? 0 : 1);
+			searchlist = dao.searchnoticelist(start, end,keyword,search_option);
+			request.setAttribute("searchlist", searchlist);
+
+			number = count - (currentPage - 1) * pageSize;
+
+			int startPage = (int) (currentPage / 10) * 10 + 1;
+			int pageBlock = 10;
+			int endPage = startPage + pageBlock - 1;
+			if (endPage > pageCount)
+				endPage = pageCount;
+
+			request.setAttribute("pageNum", pageNum);
+			request.setAttribute("pageSize", pageSize);
+			request.setAttribute("currentPage", currentPage);
+			request.setAttribute("start", start);
+			request.setAttribute("end", end);
+			request.setAttribute("number", number);
+			request.setAttribute("pageCount", pageCount);
+			request.setAttribute("startPage", startPage);
+			request.setAttribute("endPage", endPage);
+		}
+	return "/board/boardsearchList";  
+	}
 	@RequestMapping("/boardcontent.huation")
 	public String boardcontent(HttpServletRequest request) {
 		String memId = request.getParameter("memId");
@@ -181,6 +235,7 @@ public class Hueboardbean {
 		dto.setSubject(subject);
 		dto.setContent(content);
 		
+		
 			dao.insert(dto);
 			
 	return "/board/boardwritePro";
@@ -205,6 +260,7 @@ public class Hueboardbean {
 }	
 	@RequestMapping("/boardreplyPro.huation")
 	public String boardrereplyPro(HttpServletRequest request,HttpSession session,MultipartHttpServletRequest request1) {
+		
 		BoardDTO dto = new BoardDTO();
 		MultipartFile file = request1.getFile("files");
 		
@@ -258,12 +314,14 @@ public class Hueboardbean {
 		dto.setRef(ref);
 		dto.setRe_level(re_level);
 		dto.setRe_step(re_step);
-
 		
+		dao.re_stepcount(ref);
 		dao.insert(dto);
 		
+	
 		
-	    dao.re_stepcount(ref,re_step);
+		
+	    
 		 
 		 
 		
@@ -292,18 +350,20 @@ public class Hueboardbean {
 		String writer = request.getParameter("writer");
 		String subject = request.getParameter("subject");
 		String content = request.getParameter("content");
+		List<BoardDTO> updatelist = dao.sel_notice(num);
 		
 		
-		
-		String oldifile = request.getParameter("oldfile");
+		String oldifile = updatelist.get(0).getFiles();
 		String newfile = request.getParameter("file");
 		
 		System.out.println("올두 "+oldifile);
-		System.out.println("뉴"+newfile);
+		System.out.println("뉴 "+newfile);
+		
 
 		
 		// form에서 전달받은 파일
 		MultipartFile file = request1.getFile("file");//수정할 파일
+		System.out.println("뉴"+file);
 		// 파일원본 이름
 		String orgName = file.getOriginalFilename();
 		// 확장자 따옴.

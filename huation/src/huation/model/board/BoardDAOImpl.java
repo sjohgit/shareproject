@@ -9,6 +9,7 @@ public interface BoardDAOImpl {
 	public void excelinsert(BoardDTO dto);
 	public int noticecount();
 	public List<BoardDTO> noticelist(int start, int end);
+	public List<BoardDTO> searchnoticelist(int start, int end,String keyword, String search_option);
 	public List<BoardDTO> sel_notice(int num);
 	public int addreadcount(int num);
 	public void update(BoardDTO dto);
@@ -24,7 +25,7 @@ public interface BoardDAOImpl {
 
 	//답글에 대한 메서드
 	
-	public int re_stepcount(int ref ,int re_step);
+	public int re_stepcount(int ref);
 	
 
 

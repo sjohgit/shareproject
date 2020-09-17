@@ -64,28 +64,21 @@ table.type11 td {
 </form>
 </table>
 
-<c:if test="${count==0}">
-	<table  width="700" board="1" cellpadding="0" cellspacing="0">
-		<tr>
-			<td align="center">게시판에 저장된 글이 없습니다.</td>
-		</tr>
-	</table>
-</c:if>
 <c:if test="${count!=0}">
 	<table class="type11" width="700" cellpadding="0" cellspacing="0"
 		align="center">
 		<tr height="30">
-			<th align="left" width="50">번 호</th>
-			<th align="left" width="250">제 목</th>
-			<th align="left" width="100">작성자</th>
-			<th align="left" width="160">작성일</th>
-			<th align="left" width="50">조 회</th>
+			<th align="center" width="50">번 호</th>
+			<th align="center" width="250">제 목</th>
+			<th align="center" width="100">작성자</th>
+			<th align="center" width="160">작성일</th>
+			<th align="center" width="50">조 회</th>
 		</tr>
 
-		<c:forEach var="a" items="${noticeList}">
+		<c:forEach var="a" items="${searchlist}">
 			<c:set var="number" value="${number}" />
 			<tr height="30">
-				<td align="left" width="50">${a.num}</td>
+				<td align="center" width="50">${a.num}</td>
 			<c:if test="${a.re_step == 0}">
 				<th align="left" width="100">
 					<a href="boardcontent.huation?num=${a.num}&pageNum=${currentPage}"/>${a.subject}
@@ -101,26 +94,19 @@ table.type11 td {
                 	
                 </td>        
             </c:if>				
-				<td align="left" width="150">${a.writer}</td>
-				<td align="left" width="100">${a.reg_date}</td>
-				<td align="left" width="50">${a.readcount}</td>
+				<td align="center" width="150">${a.writer}</td>
+				<td align="center" width="100">${a.reg_date}</td>
+				<td align="center" width="50">${a.readcount}</td>
 			</tr>
 		</c:forEach>
 	</table>
 	<table align="center">
-		<c:if test="${count > 0}">
+		
 			<tr>
-				<td><c:if test="${startPage > 10}">
-						<a
-							href="/huation/board/boardList.huation?pageNum=${startPage-10}">[이전]</a>
-					</c:if> <c:forEach var="b" begin="${startPage}" end="${endPage}" step="1">
-						<a href="/huation/board/boardList.huation?pageNum=${b}">[${b}]</a>
-					</c:forEach> <c:if test="${endPage < pageCount}">
-						<a
-							href="/huation/board/boardList.huation?pageNum=${startPage+10}">[다음]</a>
-					</c:if></td>
+				<td align="center"><input type="button" value="글목록" 
+	       					onclick="document.location.href='/huation/board/boardList.huation?pageNum=${pageNum}'"></td>
 			</tr>
-		</c:if>
+		
 	</table>
 
 	

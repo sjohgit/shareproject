@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+   PUBLIC    "-//mybatis.org//DTD Mapper3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+   
+<mapper namespace="hueaboard">
+   
+   
+   <select id="find" resultType="int">  
+		select count(num) from SJ_hueaboard
+	</select>
+
+	<insert id="insert" parameterType="AboardDTO">  
+		insert into SJ_hueaboard values(SJ_hueaboard_seq.NEXTVAL,#{writer},#{subject},#{content},sysdate,#{readcount})
+	</insert>
+	
+	<select id="amount" resultType="int"> 
+		select count(*)from SJ_hueaboard 
+	</select>	
+	
+	<select id="boardlist" resultType="AboardDTO" parameterType="hashmap"> <!-- 게시물 나열하기 -->
+		 <![CDATA[select * from (select num,writer,subject,reg_date,content,readcount,rownum r from
+		(select * from SJ_hueaboard order by num desc) order by num desc) where r>=#{start} and r<=#{end}]]>
+	</select>   	
+
+	<update id="addreadcount" parameterType="int"> <!-- 게시물 조회수 업데이트 -->
+		update SJ_hueaboard set readcount=readcount+1 where num=#{num}a
+	</update>
+	
+	<select id="sel_notice" resultType="AboardDTO" parameterType="int">
+		select * from SJ_hueaboard where num=#{num}
+	</select>	
+	
+	<update id="modifynotice" parameterType="AboardDTO"> <!-- 게시물 수정 -->
+		update SJ_hueaboard set writer=#{writer}, subject=#{subject}, content=#{content} where num=#{num}
+	</update>
+	
+	<delete id="deletenotice" parameterType="int"> <!-- 삭제 -->
+		delete from SJ_hueaboard where num=#{num}
+	</delete>
+ 
+</mapper>

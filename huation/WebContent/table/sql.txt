@@ -16,7 +16,7 @@ email varchar2(100) not null
 create table SJ_hueboard(
 num number not null,
 writer varchar2(100) not null,
-file varchar2(100),
+files varchar2(100),
 subject varchar2(100) not null,
 content varchar2(100) not null,
 reg_date date,

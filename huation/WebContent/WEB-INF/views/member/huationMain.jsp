@@ -103,7 +103,7 @@ a:hover{color:black; text-decoration: none;}
       <li><a href="/huation/board/boardList.huation">일반게시판</a></li>
       <br/>
       <li>●게시판</li>
-      <li><a href="calendar2Form.jsp">AJAX게시판</a></li>
+      <li><a href="/huation/aboard/aboardList.huation">AJAX게시판</a></li>
     <br/>
       <li>●그래프</li>
       <li><a href="inForm.jsp">막대그래프</a></li>

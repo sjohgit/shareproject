@@ -14,7 +14,11 @@
 			
 		<typeAlias type="huation.model.board.CommentDTO"
 			alias="CommentDTO" />
-			
+				<typeAlias type="huation.model.aboard.AboardDTO"
+			alias="AboardDTO" />
+		<typeAlias type="huation.model.aboard.AboardDTO"
+			alias="AboardDTO" />
+													
 	</typeAliases>
 
 	
@@ -23,6 +27,7 @@
 
 	<mappers>
 		<mapper resource="/huationSQL/hueboardSQL.xml" />
+		<mapper resource="/huationSQL/hueaboardSQL.xml" />
 		<mapper resource="/huationSQL/huememberSQL.xml" />
 	</mappers>
 
