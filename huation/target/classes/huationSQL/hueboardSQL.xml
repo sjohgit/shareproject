@@ -11,9 +11,9 @@
 	</select>
 
 	<insert id="insert" parameterType="BoardDTO">  
-		INSERT INTO 
-		SJ_hueboard VALUES
-		(hueboard_seq.NEXTVAL,
+		INSERT INTO
+		SJ_hueboard VALUES(
+		#{num},
 		#{writer},
 		#{files},
 		#{subject},
@@ -21,8 +21,8 @@
 		sysdate,
 		#{readcount},
 		#{ref},
-		#{re_level},
-		#{re_step})
+		#{re_step},
+		#{re_level})
 	</insert>
 	
 	<insert id="excelinsert" parameterType="BoardDTO">  
@@ -36,7 +36,7 @@
 	<select id="boardlist" resultType="BoardDTO" parameterType="hashmap"> <!-- 게시물 나열하기 -->
 	
 		 <![CDATA[select * from (select num,writer,subject,reg_date,content,ref,re_step,readcount,rownum r from
-		(select * from SJ_hueboard order by ref desc, re_step desc ) order by ref desc, re_step asc) where r>=#{start} and r<=#{end}]]>
+		(select * from SJ_hueboard order by ref desc, re_step asc ) order by ref desc, re_step asc) where r>=#{start} and r<=#{end}]]>
 
 	</select>   	
 	
@@ -116,13 +116,9 @@
 	
 	<!-- 답글쿼리 -->
 
-	<update id="updateRestep" parameterType="int">
-		UPDATE sj_hueboard
-		SET re_step = re_step + 1
-		WHERE ref = #{ref}
-		
-			
-	</update>
 
-
+	
+	 <select id="updateRestep" resultType="int" parameterType="BoardDTO">  
+		select max(re_step) from SJ_hueboard where ref=#{ref}
+	</select> 
 </mapper>

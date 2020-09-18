@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ include file = "//WEB-INF/views/member/huationMain.jsp" %>
+
 <head>
 <style type="text/css">
 table.type11 {
@@ -40,7 +40,7 @@ table.type11 td {
 	<b>공지사항(전체글:${count})</b>
 </center>
 
-
+<c:if test="${sessionScope.memId !=null}">
 <table  >
 	<tr>
 		<td>
@@ -50,6 +50,7 @@ table.type11 td {
 		</td>
 	</tr>
 </table>
+</c:if>
 <table>
 	<form name="search" method="post" action="/huation/board/boardsearchList.huation">
 
@@ -72,7 +73,7 @@ table.type11 td {
 	</table>
 </c:if>
 <c:if test="${count!=0}">
-	<table class="type11" width="700" cellpadding="0" cellspacing="0"
+	<table class="type11" width="700" cellpadding="0" cellspacing="0" font-size= "12pt"
 		align="center">
 		<tr height="30">
 			<th align="left" width="50">번 호</th>

@@ -6,6 +6,7 @@ import java.util.List;
 
 public interface BoardDAOImpl {
 	public void insert(BoardDTO dto);
+	public void replyinsert(BoardDTO dto);
 	public void excelinsert(BoardDTO dto);
 	public int noticecount();
 	public List<BoardDTO> noticelist(int start, int end);
@@ -25,8 +26,8 @@ public interface BoardDAOImpl {
 
 	//답글에 대한 메서드
 	
-	public int re_stepcount(int ref);
-	
+	public int re_stepcount(int ref,int re_step);
+	public int foundre_step(int ref);
 
 
 }

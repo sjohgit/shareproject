@@ -2,12 +2,15 @@ package huation.model.bean;
 
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.text.SimpleDateFormat;
 import java.util.Iterator;
 import java.util.List;
 
 import javax.servlet.ServletContext;
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,7 +49,7 @@ public class Hueboardbean {
 			pageNum = "1";
 		}
 
-		int pageSize = 10;
+		int pageSize = 5;
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 		int currentPage = Integer.parseInt(pageNum);
 		int start = (currentPage - 1) * pageSize + 1;
@@ -212,7 +215,8 @@ public class Hueboardbean {
 				
 		// 경로설정
 		String files = request1.getSession().getServletContext().getRealPath("User/board/files");
-	
+		System.out.println("파일즈  "+files);
+
 		String fileName = orgName;
 		// files라는 폴더없으면 폴더 생성
 		File folder = new File(files);
@@ -221,7 +225,7 @@ public class Hueboardbean {
 		}
 		
 		File orgfile = new File (fileName);
-
+		System.out.println("파일라이트 "+orgfile);
 		
 	
 		try {
@@ -241,11 +245,69 @@ public class Hueboardbean {
 	return "/board/boardwritePro";
 }
 	
+	@RequestMapping("/boardfiledownloadPro.huation")
+	public String boardfiledownloadPro (HttpServletRequest request, HttpServletResponse response)throws Exception {
+
+	        
+	        // 다운로드할 파일명을 가져온다.
+	        String fileName = request.getParameter("file_name");
+	        
+	        // 파일이 있는 절대경로를 가져온다.
+	        // 현재 업로드된 파일은 UploadFolder 폴더에 있다.
+	        String folder = request.getServletContext().getRealPath("User/board/files");
+	        // 파일의 절대경로를 만든다.
+	        String filePath = folder;
+	       System.out.println("파일패스"+filePath);
+	 
+	        try {
+	            File file = new File(filePath);
+	            System.out.println("파일1"+file);
+	            byte b[] = new byte[(int) file.length()];
+	            
+	            // page의 ContentType등을 동적으로 바꾸기 위해 초기화시킴
+	            response.reset();
+	            response.setContentType("application/octet-stream");
+	            
+	            // 한글 인코딩
+	            String encoding = new String(fileName.getBytes("euc-kr"),"8859_1");
+	            
+	            // 파일 링크를 클릭했을 때 다운로드 저장 화면이 출력되게 처리하는 부분
+	            response.setHeader("Content-Disposition", "attachment;filename="+ encoding);
+	            response.setHeader("Content-Length", String.valueOf(file.length()));
+	            System.out.println("파일2"+file);
+	            if (file.isFile()) // 파일이 있을경우
+	            {
+	            	System.out.println("파일3"+file);
+	                FileInputStream fileInputStream = new FileInputStream(file);
+	                ServletOutputStream servletOutputStream = response.getOutputStream();
+	                
+	                //  파일을 읽어서 클라이언트쪽으로 저장한다.
+	                int readNum = 0;
+	                while ( (readNum = fileInputStream.read(b)) != -1) {
+	                    servletOutputStream.write(b, 0, readNum);
+	                }
+	                
+	                servletOutputStream.close();
+	                fileInputStream.close();
+	            }
+	            
+	        } catch (Exception e) {
+	            System.out.println("Download Exception : " + e.getMessage());
+	        }
+	 
+
+
+	
+		
+		return "/board/boardfiledownloadPro";
+}
+	
 	//답글달기
 	@RequestMapping("/boardreplyForm.huation")
 	public String boardreplyForm(HttpServletRequest request) {
 		String pageNum = request.getParameter("pageNum");
 		int num = Integer.parseInt(request.getParameter("num"));
+
 		
 		request.setAttribute("pageNum", pageNum);
 		request.setAttribute("num", num);
@@ -253,6 +315,7 @@ public class Hueboardbean {
 		request.setAttribute("contentList", contentList);
 		request.setAttribute("pageNum", pageNum);
 		request.setAttribute("num", num);
+		
 		
 		
 		
@@ -288,6 +351,7 @@ public class Hueboardbean {
 		String pageNum = request.getParameter("pageNum");
 		
 		int ref = Integer.parseInt(request.getParameter("ref"));
+		System.out.println("라이에프"+ref);
 		
 		String id = (String)session.getAttribute("memId");
 		
@@ -313,12 +377,27 @@ public class Hueboardbean {
 		dto.setContent(content);
 		dto.setRef(ref);
 		dto.setRe_level(re_level);
-		dto.setRe_step(re_step);
 		
-		dao.re_stepcount(ref);
-		dao.insert(dto);
+		int re_stepup = dao.foundre_step(ref);
 		
-	
+		
+		
+		System.out.println("re_stepup"+re_stepup);
+		if(re_stepup == 0) {
+			re_stepup = 1; 
+			
+		}else {
+			re_stepup++; 
+			
+		}
+		System.out.println("re_stepup+"+re_stepup);
+		dto.setRe_step(re_stepup);
+		
+		
+		
+		System.out.println(dto.getRe_step());
+		dao.replyinsert(dto);
+		
 		
 		
 	    
@@ -354,10 +433,10 @@ public class Hueboardbean {
 		
 		
 		String oldifile = updatelist.get(0).getFiles();
-		String newfile = request.getParameter("file");
+		
 		
 		System.out.println("올두 "+oldifile);
-		System.out.println("뉴 "+newfile);
+		
 		
 
 		
@@ -371,8 +450,8 @@ public class Hueboardbean {
 		// 경로설정
 		String files = request.getSession().getServletContext().getRealPath("User/board/files");
 				
-		String oldname = oldifile + "." + ext; //파일수정을 안할때
-		String newname = newfile + "." + ext; //파일수정 할때
+		String oldname = oldifile ; //파일수정을 안할때
+		String newname = orgName ; //파일수정 할때
 
 		File fileCopy1 = new File(files + "//" + oldname);
 		File fileCopy = new File(files + "//" + newname);
@@ -482,16 +561,17 @@ public class Hueboardbean {
 			return "/board/boardcommentPro";
 	}
 		// 댓글 삭제 처리
-		@RequestMapping("/interview/interviewcommentdeletePro.me")
-		public String interviewcommentdeletePro(HttpServletRequest request) {
+		@RequestMapping("/boardcommentdeletePro.huation")
+		public String boardcommentdeletePro(HttpServletRequest request) {
 			String pageNum = request.getParameter("pageNum");
 			int num = Integer.parseInt(request.getParameter("num"));
 			request.setAttribute("pageNum", pageNum);
+			request.setAttribute("num", num);
 
 			int renum = Integer.parseInt(request.getParameter("renum"));
 
 			dao.deletecomment(num, renum);
-			return "/support/interview/interviewcommentdeletePro";
+			return "/board/boardcommentdeletePro";
 		}
 }
 

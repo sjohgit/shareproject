@@ -38,12 +38,12 @@ table.type11 td {
 
 <div align="center">
 
-<center><b>글내용 보기</b></center>
+
 <br>
 <form>
 
 	<c:forEach var ="b" items="${contentList}">
-		<table class="type11" width="500"  cellspacing="0" cellpadding="0" align="center">  
+		<table class="type11" width="500"  cellspacing="0" cellpadding="0" align="center" font-size= "12pt">  
   			<tr height="30">
     			<th align="center" width="125">글번호</th>
     			<td align="center" width="125">
@@ -67,7 +67,8 @@ table.type11 td {
   			<tr height="30">
     			<th align="center" width="125">첨부파일</th>
     			<td align="center" width="375" align="center" colspan="3">
-	     		${b.getFiles()}
+    			<a href="/huation/board/boardfiledownloadPro.huation?file_name=${b.getFiles()}">
+	     		${b.getFiles()}</a>
 	     		</td>
   			</tr>
   			</tr>
@@ -107,7 +108,7 @@ table.type11 td {
 </form>
 
 
-
+<c:if test="${sessionScope.memId !=null}">
 <form name="boardcommentFrom.huation" action="/huation/board/boardcommentPro.huation">
 <table align="center">
 <tr>
@@ -119,14 +120,16 @@ table.type11 td {
     </td>
     
     <td  width="330" >
-     	<textarea name="content" rows="5" cols="40"></textarea> 
+     	<textarea name="content" rows="5" cols="40" required></textarea> 
     </td>
     <td>
 		<input type="submit" value="댓글쓰기" > 		
 	</td>
 </tr>
 </table>
+
 </form>
+</c:if>
 <c:if test="${count==0}">
 	<table width="700" board="1" cellpadding="0" cellspacing="0" align="center" border="1">
 		<tr>
@@ -154,14 +157,17 @@ table.type11 td {
 			<td align="center" width="150">${a.writer}</td>
 			<td align="center" width="150">${a.content}</td>
 			<td align="center" width="100">${a.reg_date}</td>
+			<c:if test="${sessionScope.memId eq a.writer}">
 			<td><input type="button" value="삭제하기"
-			onclick="document.location.href='/huation/board/boardcommentdeletePro.huation?num=${a.getNum()}&pageNum=${pageNum}&renum=${a.renum}'"></td>
+			onclick="document.location.href='/huation/board/boardcommentdeletePro.huation?num=${a.getNum()}&pageNum=${pageNum}&renum=${a.renum}'">
+			</td>
+			</c:if>
 		</tr>
 	
 </table>
 </c:if>	
 </c:forEach>
-<table align ="center">
+<%-- <table align ="center">
 <c:if test="${count > 0}"> 
 <tr>
 	<td>		
@@ -177,6 +183,6 @@ table.type11 td {
         </c:if>
     </td>
 </tr>
-</c:if>
+</c:if> --%>
 </table>
 </div>

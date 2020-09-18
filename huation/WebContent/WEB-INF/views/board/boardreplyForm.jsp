@@ -51,10 +51,9 @@ table.type11 td {
 	  onsubmit="return writeSave()">
 	
 		<c:forEach var="a" items="${contentList}">
-			<input type="hidden" name="ref" value="${a.num}"/>
-		</c:forEach> 	
-			
+			<input type="hidden" name="ref" value="${a.ref}"/>
 			<input type="hidden" name="re_step" value="0"/>
+		</c:forEach> 	
 			<input type="hidden" name="re_level" value="0"/>
 	
 			

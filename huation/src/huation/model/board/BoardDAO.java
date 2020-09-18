@@ -38,6 +38,35 @@ public class BoardDAO implements BoardDAOImpl{
 			num++; 
 			
 		}
+		System.out.println("넘:"+num);
+		dto.setNum(num);
+		dto.setRef(num);
+		
+		sqlSession.insert("hueboard.insert",dto);
+	}
+	@Override
+	public int foundre_step(int ref) {
+		
+		return sqlSession.selectOne("hueboard.updateRestep",ref);
+
+	}
+	@Override
+	public void replyinsert(BoardDTO dto) {
+		int num = sqlSession.selectOne("hueboard.find");
+
+		if(num == 0) {
+			num = 1; 
+			
+		}else {
+			num++; 
+			
+		}
+	
+		System.out.println("넘:"+num);
+		
+		
+		dto.setNum(num);
+		
 		
 		sqlSession.insert("hueboard.insert",dto);
 	}
@@ -176,10 +205,11 @@ public class BoardDAO implements BoardDAOImpl{
 	
 	//답글
 	@Override
-	public int re_stepcount(int ref) {
-	
-		
-		return sqlSession.update("hueboard.updateRestep",ref);
+	public int re_stepcount(int ref,int re_step) {
+		HashMap map = new HashMap();
+		map.put("ref", ref);
+		map.put("re_step",re_step);
+		return sqlSession.update("hueboard.updateRestep",map);
 	}
 
 }
