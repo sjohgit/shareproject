@@ -24,7 +24,7 @@ public class Hueaboardbean {
 	private AboardDAO dao = null;
 	
 	//Java script
-	@RequestMapping(value= "insert")
+	@RequestMapping(value= "/insert")
 	public boolean selectAccountNum(HttpServletRequest request,AboardDTO dto) {
 		String writer = request.getParameter("writer");
 		String subject = request.getParameter("subject");

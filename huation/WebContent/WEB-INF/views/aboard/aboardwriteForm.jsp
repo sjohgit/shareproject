@@ -68,13 +68,12 @@ table.type11 td {
 		</tr>
 		<tr>
 			<th width="100" align="center">제 목</th>
-			<td width="330"><input type="text" size="40" maxlength="50" name="subject" 
-			OnClick="insert()" required></td>
+			<td width="330"><input type="text" size="40" maxlength="50" name="subject"  
+			 required></td>
 		</tr>
 		<tr>
 			<th width="100" align="center">내 용</th>
-			<td width="330"><textarea name="content" rows="13" cols="40" 
-			OnClick="insert()" required></textarea> 
+			<td width="330"><textarea name="content" rows="13" cols="40"  required></textarea> 
 			</td>
 		</tr>
 		<tr>

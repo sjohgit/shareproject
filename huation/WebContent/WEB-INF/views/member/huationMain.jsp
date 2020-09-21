@@ -109,7 +109,7 @@ a:hover{color:black; text-decoration: none;}
       <li><a href="inForm.jsp">막대그래프</a></li>
         <br/>
    	  <li>●채팅기능</li>
-      <li><a href="calendar2Form.jsp">채팅하기</a></li>
+      <li><a href="/huation/chat/chat.huation">채팅하기</a></li>
  
     </ul>
   </nav>

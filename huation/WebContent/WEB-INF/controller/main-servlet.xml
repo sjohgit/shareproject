@@ -23,7 +23,8 @@
 	
 	<bean id="AboardDAO"	class="huation.model.aboard.AboardDAO">
 		<constructor-arg ref="sqlSession" />	   
-	</bean>	
+	</bean>
+	
 	
 	<context:component-scan base-package="huation.model.bean" />
 	   
