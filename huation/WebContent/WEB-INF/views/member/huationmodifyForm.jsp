@@ -71,7 +71,7 @@ table.type11 td {
 </style>
 <div align="center">
 
-	<form action="/huation/member/huationmodifyPro.huation" method="post"
+	<form action="/huation/member/huationmodifyPro.do" method="post"
 		name="userinput" onsubmit="return checkIt()">
 		<c:forEach var ="a" items="${list}">
 		<table class="type11">

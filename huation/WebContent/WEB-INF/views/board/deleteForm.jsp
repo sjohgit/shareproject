@@ -13,8 +13,8 @@
 <table align = "center">
 	<tr>
 		<td>
-			<input type="button" value="예" onclick="location.href='/huation/board/boarddeletePro.huation?pageNum=${pageNum}&num=${num}'" />
-			<input type="button" value="아니오" onClick="location.href='/huation/board/boardList.huation?pageNum=${pageNum}'">
+			<input type="button" value="예" onclick="location.href='/huation/board/deletePro.do?pageNum=${pageNum}&num=${num}'" />
+			<input type="button" value="아니오" onClick="location.href='/huation/board/List.do?pageNum=${pageNum}'">
 		</td>
 	<tr>	
 

@@ -45,7 +45,7 @@ table.type11 td {
 <form method="post" 
 enctype="multipart/form-data" 
 name="boardupdateForm" 
-action="/huation/board/boardupdatePro.huation?pageNum=${pageNum}">
+action="/huation/board/updatePro.do?pageNum=${pageNum}">
 <c:forEach var ="c" items="${updatelist}">
 	<table class="type11" width="400"  cellspacing="0" cellpadding="0" align="center">
   		<tr>
@@ -78,7 +78,7 @@ action="/huation/board/boardupdatePro.huation?pageNum=${pageNum}">
    			<td colspan=2 align="center"> 
      			<input type="submit" value="글수정" >  
      			<input type="reset" value="다시작성">
-     			<input type="button" value="목록보기" onclick="document.location.href='/huation/board/boardList.huation?pageNum=${pageNum}'">
+     			<input type="button" value="목록보기" onclick="document.location.href='/huation/board/List.do?pageNum=${pageNum}'">
    			</td>
  		</tr>
  	</table>

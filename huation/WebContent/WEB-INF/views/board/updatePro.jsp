@@ -3,5 +3,5 @@
     <%@ include file = "//WEB-INF/views/member/huationMain.jsp" %>
     <script>
     	alert('수정되었습니다.');
-    	document.location.href='/huation/board/boardList.huation?pageNum='+${pageNum};
+    	document.location.href='/huation/board/List.do?pageNum='+${pageNum};
     </script>

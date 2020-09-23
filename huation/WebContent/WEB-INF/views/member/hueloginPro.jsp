@@ -7,7 +7,7 @@
 <script>
 	<c:if test="${check == 1}">
 		alert("안녕하세요.");
-		document.location.href = '/huation/huation.huation';
+		document.location.href = '/huation/huation.do';
 	</c:if>
 	
 <c:if test="${check == 0}">

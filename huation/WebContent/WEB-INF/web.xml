@@ -43,7 +43,7 @@ id="WebApp_ID" version="3.0">
 	<servlet-mapping>
 	
 		<servlet-name>huation</servlet-name>
-		<url-pattern>*.huation</url-pattern>
+		<url-pattern>*.do</url-pattern>
 	
 	</servlet-mapping>
 </web-app>

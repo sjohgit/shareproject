@@ -4,6 +4,6 @@
 
 <script>
 	alert("댓글이 삭제되었습니다.")
-	document.location.href='/huation/board/boardcontent.huation?pageNum=' + ${pageNum} + '&num=' + ${num};
+	document.location.href='/huation/board/content.do?pageNum=' + ${pageNum} + '&num=' + ${num};
 </script>
    

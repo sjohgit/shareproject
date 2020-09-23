@@ -40,7 +40,7 @@ table.type11 td {
 <center>
 
 <h1>회원 로그인</h1>
-<form action="/huation/member/hueloginPro.huation">
+<form action="/huation/member/hueloginPro.do">
 	<table class="type11">
 		<tr align="center">
 			<th>아이디</th>

@@ -43,7 +43,7 @@ table.type11 td {
 <h1>회원정보수정</h1>
 <li>비밀번호를 한번 더 입력해주세요.</li>
 
-<form action="/huation/member/huationmodifycheckPro.huation?">
+<form action="/huation/member/huationmodifycheckPro.do?">
 	<table class="type11">
 		<tr align="center">
 			<th>아이디</th>

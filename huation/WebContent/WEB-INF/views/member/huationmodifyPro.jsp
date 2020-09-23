@@ -2,5 +2,5 @@
     pageEncoding="UTF-8"%>
 <script>
 	alert("수정되었습니다.");
-	document.location.href='/huation/huation.huation';
+	document.location.href='/huation/huation.do';
 </script>

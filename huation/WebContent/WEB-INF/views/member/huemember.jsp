@@ -44,7 +44,7 @@
 		}
 
 
-		url = "/huation/member/huecheckmember.huation?id=" + userinput.id.value;
+		url = "/huation/member/huecheckmember.do?id=" + userinput.id.value;
 		open(
 				url,
 				"confirm",
@@ -85,7 +85,7 @@ table.type11 td {
 
 
 <div align="center">
-	<form  action="/huation/member/huememberPro.huation"
+	<form  action="/huation/member/huememberPro.do"
 			name="userinput" onSubmit="return checkIt()">
 
 		<h2>회원가입</h2>
@@ -122,7 +122,7 @@ table.type11 td {
 			</tr>
 			<tr>
 				<th colspan="2"><input type="submit" value="가입하기">
-					<input type="button" value="돌아가기" onclick="window.location='/huation/member/'" />
+					<input type="button" value="돌아가기" onclick="window.location='/huation/member/huelogin.do'" />
 				</th>
 			</tr>
 

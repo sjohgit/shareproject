@@ -10,9 +10,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/")
+@RequestMapping("")
 public class Huebean {
-	@RequestMapping("/huation")
+	@RequestMapping("/huation.do")
 	public String huationMain(Locale locale,HttpServletRequest request) {
 		String memId = request.getParameter("memId");
 		String pw = request.getParameter("pw");

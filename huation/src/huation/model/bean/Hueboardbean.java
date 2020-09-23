@@ -37,8 +37,8 @@ public class Hueboardbean {
 	@Autowired
 	private BoardDAO dao = null;
 	
-	@RequestMapping("/boardList.huation")
-	public String boardList(HttpServletRequest request) {
+	@RequestMapping("/List.do")
+	public String List(HttpServletRequest request) {
 		String pageNum = request.getParameter("pageNum");
 	
 		
@@ -83,10 +83,10 @@ public class Hueboardbean {
 			request.setAttribute("startPage", startPage);
 			request.setAttribute("endPage", endPage);
 		}
-	return "/board/boardList";
+	return "/board/List";
 }
-	@RequestMapping("/boardsearchList.huation")
-	public String boardsearchList(HttpServletRequest request) {
+	@RequestMapping("/searchList.do")
+	public String searchList(HttpServletRequest request) {
 		String pageNum = request.getParameter("pageNum");
 		String keyword = request.getParameter("keyword");
 		String search_option = request.getParameter("search_option");
@@ -133,10 +133,10 @@ public class Hueboardbean {
 			request.setAttribute("startPage", startPage);
 			request.setAttribute("endPage", endPage);
 		}
-	return "/board/boardsearchList";  
+	return "/board/searchList";  
 	}
-	@RequestMapping("/boardcontent.huation")
-	public String boardcontent(HttpServletRequest request) {
+	@RequestMapping("/content.do")
+	public String content(HttpServletRequest request) {
 		String memId = request.getParameter("memId");
 		String n = request.getParameter("num");
 		int num = Integer.parseInt(n);
@@ -190,15 +190,15 @@ public class Hueboardbean {
 			request.setAttribute("endPage", endPage);
 			
 		}
-	return "/board/boardcontent";
+	return "/board/content";
 }
-	@RequestMapping("/boardwriteForm.huation")
-	public String boardwriteForm() {
+	@RequestMapping("/writeForm.do")
+	public String writeForm() {
 
-	return "/board/boardwriteForm";
+	return "/board/writeForm";
 }
-	@RequestMapping("/boardwritePro.huation")
-	public String boardwritePro(HttpServletRequest request,HttpSession session,MultipartHttpServletRequest request1) {
+	@RequestMapping("/writePro.do")
+	public String writePro(HttpServletRequest request,HttpSession session,MultipartHttpServletRequest request1) {
 		BoardDTO dto = new BoardDTO();
 		String writer = (String)session.getAttribute("memId");
 		
@@ -242,11 +242,11 @@ public class Hueboardbean {
 		
 			dao.insert(dto);
 			
-	return "/board/boardwritePro";
+	return "/board/writePro";
 }
 	
-	@RequestMapping("/boardfiledownloadPro.huation")
-	public String boardfiledownloadPro (HttpServletRequest request, HttpServletResponse response)throws Exception {
+	@RequestMapping("/filedownloadPro.do")
+	public String filedownloadPro (HttpServletRequest request, HttpServletResponse response)throws Exception {
 
 	        
 	        // 다운로드할 파일명을 가져온다.
@@ -299,11 +299,11 @@ public class Hueboardbean {
 
 	
 		
-		return "/board/boardfiledownloadPro";
+		return "/board/filedownloadPro";
 }
 	
 	//답글달기
-	@RequestMapping("/boardreplyForm.huation")
+	@RequestMapping("/replyForm.do")
 	public String boardreplyForm(HttpServletRequest request) {
 		String pageNum = request.getParameter("pageNum");
 		int num = Integer.parseInt(request.getParameter("num"));
@@ -319,10 +319,10 @@ public class Hueboardbean {
 		
 		
 		
-	return "/board/boardreplyForm";
+	return "/board/replyForm";
 }	
-	@RequestMapping("/boardreplyPro.huation")
-	public String boardrereplyPro(HttpServletRequest request,HttpSession session,MultipartHttpServletRequest request1) {
+	@RequestMapping("/replyPro.do")
+	public String rereplyPro(HttpServletRequest request,HttpSession session,MultipartHttpServletRequest request1) {
 		
 		BoardDTO dto = new BoardDTO();
 		MultipartFile file = request1.getFile("files");
@@ -407,10 +407,10 @@ public class Hueboardbean {
 		
 
 		
-	return "/board/boardreplyPro";
+	return "/board/replyPro";
 }
-	@RequestMapping("/boardupdateForm.huation")
-	public String boardupdateForm(HttpServletRequest request) {
+	@RequestMapping("/updateForm.do")
+	public String updateForm(HttpServletRequest request) {
 		String pageNum = request.getParameter("pageNum");
 		int num = Integer.parseInt(request.getParameter("num"));
 
@@ -420,9 +420,9 @@ public class Hueboardbean {
 		request.setAttribute("pageNum", pageNum);
 		request.setAttribute("num", num);
 		
-	return "/board/boardupdateForm";
+	return "/board/updateForm";
 }
-	@RequestMapping("/boardupdatePro.huation")
+	@RequestMapping("/updatePro.do")
 	public String boardupdatePro(HttpServletRequest request,BoardDTO dto,MultipartHttpServletRequest request1) {
 		String pageNum = request.getParameter("pageNum");
 		int num = Integer.parseInt(request.getParameter("num"));
@@ -432,10 +432,10 @@ public class Hueboardbean {
 		List<BoardDTO> updatelist = dao.sel_notice(num);
 		
 		
-		String oldifile = updatelist.get(0).getFiles();
+		String oldfile = updatelist.get(0).getFiles();
 		
+		System.out.println("올두1 "+oldfile);
 		
-		System.out.println("올두 "+oldifile);
 		
 		
 
@@ -450,26 +450,29 @@ public class Hueboardbean {
 		// 경로설정
 		String files = request.getSession().getServletContext().getRealPath("User/board/files");
 				
-		String oldname = oldifile ; //파일수정을 안할때
+		String oldname = oldfile ; //파일수정을 안할때
 		String newname = orgName ; //파일수정 할때
 
-		File fileCopy1 = new File(files + "//" + oldname);
-		File fileCopy = new File(files + "//" + newname);
+		
+		File fileCopy = new File(orgName);
 		try {
 			file.transferTo(fileCopy);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 				
-		if(file == null || file.equals(oldifile)) {//이미지 변경 안할경우
-			dto.setFiles(oldifile);
+		if(file == null || file.equals(oldname)) {//파일 변경 안할경우
+			System.out.println("올두2 "+oldname);
+			dto.setFiles(oldfile);
+			
 		}else {
 			dto.setFiles(newname);//이미지 변경할때
-			File file1 = new File(files + "//" + oldifile);
+			File file1 = new File(files);
 			if(file1.exists()) {
 				file1.delete();
 		}
 }
+		
 		
 		
 		
@@ -482,41 +485,41 @@ public class Hueboardbean {
 
 		request.setAttribute("pageNum", pageNum);
 		request.setAttribute("num", num);		
-	return "/board/boardupdatePro";
+	return "/board/updatePro";
 }
-	@RequestMapping("/boarddeleteForm.huation")
-	public String boarddeleteForm(HttpServletRequest request) {
+	@RequestMapping("/deleteForm.do")
+	public String deleteForm(HttpServletRequest request) {
 		String pageNum = request.getParameter("pageNum");
 		int num = Integer.parseInt(request.getParameter("num"));
 		request.setAttribute("pageNum", pageNum);
 		request.setAttribute("num", num);
 		
-	return "/board/boarddeleteForm";
+	return "/board/deleteForm";
 }
-	@RequestMapping("/boarddeletePro.huation")
-	public String boarddeletePro(HttpServletRequest request) {
+	@RequestMapping("/deletePro.do")
+	public String deletePro(HttpServletRequest request) {
 		String pageNum = request.getParameter("pageNum");
 		int num = Integer.parseInt(request.getParameter("num"));
 		request.setAttribute("pageNum", pageNum);
 		request.setAttribute("num", num);
 
 		dao.delete(num);		
-	return "/board/boarddeletePro";
+	return "/board/deletePro";
 }
-	@RequestMapping("/downExcelForm.huation")
+	@RequestMapping("/downExcelForm.do")
 	public String downExcelForm (HttpServletRequest request,BoardDTO dto)throws Exception {
 		List<BoardDTO> excellist = dao.excellist();
 		request.setAttribute("excellist", excellist);
 		
 		return "/board/downExcelForm";
 }
-	@RequestMapping("/uploadExcelForm.huation")
+	@RequestMapping("/uploadExcelForm.do")
 	public String uploadExcelForm (BoardDTO dto){
 	
 		return "/board/uploadExcelForm";
 }
 	
-		@RequestMapping("/uploadExcellistForm.huation")
+		@RequestMapping("/uploadExcellistForm.do")
 		public String uploadExcellistForm (MultipartHttpServletRequest request){
 			// form에서 전달받은 파일
 			MultipartFile excelFile = request.getFile("excelfile");
@@ -547,8 +550,8 @@ public class Hueboardbean {
 			return "/board/uploadExcellistForm";
 	}
 
-		@RequestMapping("/boardcommentPro.huation")
-		public String boardcommentPro (CommentDTO dto, HttpServletRequest request){
+		@RequestMapping("/commentPro.do")
+		public String commentPro (CommentDTO dto, HttpServletRequest request){
 			int num = Integer.parseInt(request.getParameter("num"));
 			String pageNum = request.getParameter("pageNum");
 
@@ -558,11 +561,11 @@ public class Hueboardbean {
 			request.setAttribute("num", num);
 			request.setAttribute("pageNum", pageNum);
 		
-			return "/board/boardcommentPro";
+			return "/board/commentPro";
 	}
 		// 댓글 삭제 처리
-		@RequestMapping("/boardcommentdeletePro.huation")
-		public String boardcommentdeletePro(HttpServletRequest request) {
+		@RequestMapping("/commentdeletePro.do")
+		public String commentdeletePro(HttpServletRequest request) {
 			String pageNum = request.getParameter("pageNum");
 			int num = Integer.parseInt(request.getParameter("num"));
 			request.setAttribute("pageNum", pageNum);
@@ -571,7 +574,7 @@ public class Hueboardbean {
 			int renum = Integer.parseInt(request.getParameter("renum"));
 
 			dao.deletecomment(num, renum);
-			return "/board/boardcommentdeletePro";
+			return "/board/commentdeletePro";
 		}
 }
 

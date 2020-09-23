@@ -44,14 +44,14 @@ table.type11 td {
 <table  >
 	<tr>
 		<td>
-			<a href="boardwriteForm.huation">글쓰기</a>
-			<a href="downExcelForm.huation">엑셀로 내려받기</a>
-			<a href="uploadExcelForm.huation">DB로 저장하기</a>
+			<a href="writeForm.do">글쓰기</a>
+			<a href="downExcelForm.do">엑셀로 내려받기</a>
+			<a href="uploadExcelForm.do">DB로 저장하기</a>
 		</td>
 	</tr>
 </table>
 <table>
-	<form name="search" method="post" action="/huation/board/boardsearchList.huation">
+	<form name="search" method="post" action="/huation/board/searchList.do">
 
     <select name="search_option">
         <option value="subject" selected>제목</option>
@@ -81,7 +81,7 @@ table.type11 td {
 				<td align="center" width="50">${a.num}</td>
 			<c:if test="${a.re_step == 0}">
 				<th align="left" width="100">
-					<a href="boardcontent.huation?num=${a.num}&pageNum=${currentPage}"/>${a.subject}
+					<a href="content.do?num=${a.num}&pageNum=${currentPage}"/>${a.subject}
 				</td>
 			</c:if>
 			<c:if test="${a.re_step > 0}">
@@ -90,7 +90,7 @@ table.type11 td {
 				<c:forEach begin="1" end="${a.re_step}">
                             &nbsp;&nbsp; <!-- 답변글일경우 글 제목 앞에 공백을 준다. -->
                  </c:forEach>
-                        <span>RE : </span><a href="boardcontent.huation?num=${a.num}&pageNum=${currentPage}"/>${a.subject}
+                        <span>RE : </span><a href="content.do?num=${a.num}&pageNum=${currentPage}"/>${a.subject}
                 	
                 </td>        
             </c:if>				
@@ -104,7 +104,7 @@ table.type11 td {
 		
 			<tr>
 				<td align="center"><input type="button" value="글목록" 
-	       					onclick="document.location.href='/huation/board/boardList.huation?pageNum=${pageNum}'"></td>
+	       					onclick="document.location.href='/huation/board/List.do?pageNum=${pageNum}'"></td>
 			</tr>
 		
 	</table>

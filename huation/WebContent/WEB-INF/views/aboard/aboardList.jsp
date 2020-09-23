@@ -49,11 +49,19 @@ table.type11 td {
 </table>
 
 <c:if test="${count==0}">
-	<table  width="700" board="1" cellpadding="0" cellspacing="0">
-		<tr>
-			<td align="center">게시판에 저장된 글이 없습니다.</td>
+	<table class="type11" width="700" cellpadding="0" cellspacing="0" font-size= "12pt"
+		align="center">
+		<tr height="30">
+			<th align="left" width="50">번 호</th>
+			<th align="left" width="250">제 목</th>
+			<th align="left" width="100">작성자</th>
+			<th align="left" width="160">작성일</th>
+			<th align="left" width="50">조 회</th>
 		</tr>
-	</table>
+		<tr height="30">
+			<td align="center" colspan="5">게시판에 저장된 글이 없습니다.</td>
+		</tr>
+		</table>
 </c:if>
 <c:if test="${count!=0}">
 	<table class="type11" width="700" cellpadding="0" cellspacing="0"

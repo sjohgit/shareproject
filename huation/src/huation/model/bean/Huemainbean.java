@@ -28,12 +28,12 @@ import huation.model.member.MemberDTO;
 	private MemberDAO dao = null;
 	
 
-		@RequestMapping("/huemember.huation")
+		@RequestMapping("/huemember.do")
 		public String huemember() {
 
 		return "/member/huemember";
 	}
-		@RequestMapping("/huecheckmember.huation")
+		@RequestMapping("/huecheckmember.do")
 		public String huecheckmember(HttpServletRequest request) {
 			String memId = request.getParameter("id");
 			int check = dao.checkmember(memId);
@@ -43,14 +43,14 @@ import huation.model.member.MemberDTO;
 
 		return "/member/huecheckmember";
 	}
-		@RequestMapping("/huememberPro.huation")
+		@RequestMapping("/huememberPro.do")
 		public String hueMemeberPro(MemberDTO dto,HttpServletRequest request) {
 			
 			dao.insert(dto);
 			
 		return "/member/huememberPro";
 	}
-		@RequestMapping("/huelogin.huation")
+		@RequestMapping("/huelogin.do")
 		public String huelogin(HttpServletRequest request) {
 			String memId = request.getParameter("id");
 			
@@ -58,7 +58,7 @@ import huation.model.member.MemberDTO;
 
 		return "/member/huelogin";
 	}
-		@RequestMapping("/hueloginPro.huation")
+		@RequestMapping("/hueloginPro.do")
 		public String hueloginPro(HttpServletRequest request,HttpSession session,MemberDTO dto) {
 			String id = request.getParameter("id");
 			String pw = request.getParameter("pw");
@@ -79,24 +79,24 @@ import huation.model.member.MemberDTO;
 
 		return "/member/hueloginPro";
 	}
-		@RequestMapping("/hueloginMain.huation")
+		@RequestMapping("/hueloginMain.do")
 		public String hueloginMain(HttpServletRequest request) {
 
 
 		return "/member/huationMain";
 	}
-		@RequestMapping("/huelogout.huation")
+		@RequestMapping("/huelogout.do")
 		public String huelogout(HttpSession session) {
 			session.invalidate();
 		return "/member/huelogout";
 	}
-		@RequestMapping("/huationmodifycheckForm.huation")
+		@RequestMapping("/huationmodifycheckForm.do")
 		public String huationmodifycheckForm(HttpServletRequest request) {
 			String memId = request.getParameter("memId");
 			request.setAttribute("memId", memId);
 			return "/member/huationmodifycheckForm";
 	}
-		@RequestMapping("/huationmodifycheckPro.huation")
+		@RequestMapping("/huationmodifycheckPro.do")
 		public String huationmodifycheckPro(HttpServletRequest request,MemberDTO dto) {
 			String memId = request.getParameter("id");
 			String pw = request.getParameter("pw");
@@ -110,7 +110,7 @@ import huation.model.member.MemberDTO;
 			request.setAttribute("check", check);
 		return "/member/huationmodifycheckPro";
 	}
-		@RequestMapping("/huationmodifyForm.huation")
+		@RequestMapping("/huationmodifyForm.do")
 		public String huationmodifyForm(HttpServletRequest request,MemberDTO dto,HttpSession session) {
 			String id = (String)session.getAttribute("memId");
 			System.out.println("아이디"+id);
@@ -119,7 +119,7 @@ import huation.model.member.MemberDTO;
 			request.setAttribute("list", list);
 		return "/member/huationmodifyForm";
 	}
-		@RequestMapping("/huationmodifyPro.huation")
+		@RequestMapping("/huationmodifyPro.do")
 		public String huationmodifyPro(MemberDTO dto,HttpSession session) {
 			String id = (String)session.getAttribute("memId");
 			dto.setId(id);

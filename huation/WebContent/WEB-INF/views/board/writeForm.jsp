@@ -44,7 +44,7 @@ table.type11 td {
 <br>
 <div align="center">
 <form name="boardwriteForm.huation"
-	action="/huation/board/boardwritePro.huation"
+	action="/huation/board/writePro.do"
 	method="post"
 	enctype="multipart/form-data"
 	onsubmit="return writeSave()">
@@ -76,7 +76,7 @@ table.type11 td {
 		<tr>
 			<td colspan=2 align="center"><input type="submit" value="글쓰기">
 				<input type="reset" value="다시작성"> <input type="button"
-				value="목록보기" OnClick="window.location='/board/notice/noticeList.me'">
+				value="목록보기" OnClick="window.location='/board/writeForm.do'">
 			</td>
 		</tr>
 

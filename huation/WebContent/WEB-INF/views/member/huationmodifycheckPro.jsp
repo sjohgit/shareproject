@@ -7,6 +7,6 @@
 		history.go(-1);
 	</c:if>
 		<c:if test="${check == 1}">
-		document.location.href = '/huation/member/huationmodifyForm.huation';
+		document.location.href = '/huation/member/huationmodifyForm.do';
 	</c:if>	
 	</script>

@@ -71,10 +71,10 @@ a:hover{color:black; text-decoration: none;}
 
 	<c:if test="${sessionScope.memId == null}">
     	<input type="button" value="로그인" style="float:right;"
-       		onclick="document.location.href='/huation/member/huelogin.huation'">
+       		onclick="document.location.href='/huation/member/huelogin.do'">
        		
        	<input type="button" value="회원가입" style="float:right;"
-       		onclick="document.location.href='/huation/member/huemember.huation'">
+       		onclick="document.location.href='/huation/member/huemember.do'">
        		
        		   
     </c:if>
@@ -83,13 +83,13 @@ a:hover{color:black; text-decoration: none;}
     
     <li>${sessionScope.memId}님 안녕하세요</li>
     	<input type="button" value="메인으로" style="float:right;"
-       		onclick="document.location.href='/huation/huation.huation'">
+       		onclick="document.location.href='/huation/huation.do'">
        		
         <input type="button" value="로그아웃" style="float:right;"
-       		onclick="document.location.href='/huation/member/huelogout.huation'">
+       		onclick="document.location.href='/huation/member/huelogout.do'">
        		
        <input type="button" value="개인정보수정" style="float:right;"
-       		onclick="document.location.href='/huation/member/huationmodifycheckForm.huation'">
+       		onclick="document.location.href='/huation/member/huationmodifycheckForm.do'">
     </c:if>  
        
   <br/>
@@ -100,16 +100,16 @@ a:hover{color:black; text-decoration: none;}
     <ul>
     <li>▶메뉴</li><br/>
       <li>●게시판</li>
-      <li><a href="/huation/board/boardList.huation">일반게시판</a></li>
+      <li><a href="/huation/board/List.do">일반게시판</a></li>
       <br/>
       <li>●게시판</li>
-      <li><a href="/huation/aboard/aboardList.huation">AJAX게시판</a></li>
+      <li><a href="/huation/aboard/List.do">AJAX게시판</a></li>
     <br/>
       <li>●그래프</li>
-      <li><a href="inForm.jsp">막대그래프</a></li>
+      <li><a href="/huation/chart/chartJS.do">막대그래프</a></li>
         <br/>
    	  <li>●채팅기능</li>
-      <li><a href="/huation/chat/chat.huation">채팅하기</a></li>
+      <li><a href="/huation/chat/chat.do">채팅하기</a></li>
  
     </ul>
   </nav>

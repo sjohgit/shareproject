@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
  <%@ taglib prefix = "c" uri="http://java.sun.com/jsp/jstl/core" %>
- <%@ include file = "//WEB-INF/views/member/huationMain.jsp" %>   
+ <%@ include file = "/WEB-INF/views/member/huationMain.jsp" %>   
 <title>게시판</title>
 <head>
 <style type="text/css">
@@ -67,7 +67,7 @@ table.type11 td {
   			<tr height="30">
     			<th align="center" width="125">첨부파일</th>
     			<td align="center" width="375" align="center" colspan="3">
-    			<a href="/huation/board/boardfiledownloadPro.huation?file_name=${b.getFiles()}">
+    			<a href="/huation/board/filedownloadPro.do?file_name=${b.getFiles()}">
 	     		${b.getFiles()}</a>
 	     		</td>
   			</tr>
@@ -86,18 +86,18 @@ table.type11 td {
     			<td colspan="4"align="right" > 
 	  				<c:if test="${sessionScope.memId eq b.writer}">
 		  				<input type="button" value="글수정" 
-	       					onclick="document.location.href='/huation/board/boardupdateForm.huation?num=${b.getNum()}&pageNum=${pageNum}'">
+	       					onclick="document.location.href='/huation/board/updateForm.do?num=${b.getNum()}&pageNum=${pageNum}'">
 		   					&nbsp;&nbsp;&nbsp;&nbsp;
 		  				<input type="button" value="글삭제" 
-	       					onclick="document.location.href='/huation/board/boarddeleteForm.huation?num=${b.getNum()}&pageNum=${pageNum}'">
+	       					onclick="document.location.href='/huation/board/deleteForm.do?num=${b.getNum()}&pageNum=${pageNum}'">
 		   					&nbsp;&nbsp;&nbsp;&nbsp;
 		   			</c:if>
 						<input type="button" value="글목록" 
-	       					onclick="document.location.href='/huation/board/boardList.huation?pageNum=${pageNum}'">
+	       					onclick="document.location.href='/huation/board/List.do?pageNum=${pageNum}'">
 	       					&nbsp;&nbsp;&nbsp;&nbsp;
 	       			<c:if test="${sessionScope.memId !=null}">
 		   				<input type="button" value="답글달기" 
-	       					onclick="document.location.href='/huation/board/boardreplyForm.huation?num=${b.getNum()}&pageNum=${pageNum}'">
+	       					onclick="document.location.href='/huation/board/replyForm.do?num=${b.getNum()}&pageNum=${pageNum}'">
 		   						
 		   			</c:if>
 	       					
@@ -109,7 +109,7 @@ table.type11 td {
 
 
 <c:if test="${sessionScope.memId !=null}">
-<form name="boardcommentFrom.huation" action="/huation/board/boardcommentPro.huation">
+<form name="boardcommentFrom.huation" action="/huation/board/commentPro.do">
 <table align="center">
 <tr>
 	<td width="70">
@@ -159,7 +159,7 @@ table.type11 td {
 			<td align="center" width="100">${a.reg_date}</td>
 			<c:if test="${sessionScope.memId eq a.writer}">
 			<td><input type="button" value="삭제하기"
-			onclick="document.location.href='/huation/board/boardcommentdeletePro.huation?num=${a.getNum()}&pageNum=${pageNum}&renum=${a.renum}'">
+			onclick="document.location.href='/huation/board/commentdeletePro.do?num=${a.getNum()}&pageNum=${pageNum}&renum=${a.renum}'">
 			</td>
 			</c:if>
 		</tr>

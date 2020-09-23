@@ -1,0 +1,18 @@
+package huation.model.bean;
+
+
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+@Controller
+@RequestMapping("/chart")
+public class HuechartJS {
+	@RequestMapping("/chartJS.huation")//메인페이지
+	public String chartJS(HttpServletRequest request) {
+
+	return "chart/chartJS";
+}
+}
