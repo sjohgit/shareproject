@@ -25,21 +25,37 @@ ref number,
 re_step number,
 re_level number
 );
- 
-시퀀스
-
-create sequence hueboard_seq
-increment by 1
-start with 0
-minvalue 0
-nocycle
-nocache;
 
 댓글테이블
 create table SJ_hueboardcomment(
 num number,
-renum number primary key,
+renum number,
 writer varchar2(100),
 content varchar2(1000),
 reg_date date
 );
+
+휴에이작스테이블 
+create table SJ_hueaboard(
+num number not null,
+writer varchar2(100) not null,
+subject varchar2(100) not null,
+content varchar2(100) not null,
+reg_date date,
+readcount number,
+ref number,
+re_step number,
+re_level number
+);
+
+댓글테이블
+create table SJ_hueaboardcomment(
+num number,
+renum number,
+writer varchar2(100),
+content varchar2(1000),
+reg_date date
+);
+ 
+
+

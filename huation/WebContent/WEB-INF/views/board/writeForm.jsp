@@ -49,7 +49,7 @@ table.type11 td {
 	enctype="multipart/form-data"
 	onsubmit="return writeSave()">
 
-	<table class="type11"  cellspacing="0" cellpadding="0"
+	<table class="type11"  width="700" cellspacing="0" cellpadding="0"
 		align="center">
 		
 		<tr>
@@ -76,7 +76,7 @@ table.type11 td {
 		<tr>
 			<td colspan=2 align="center"><input type="submit" value="글쓰기">
 				<input type="reset" value="다시작성"> <input type="button"
-				value="목록보기" OnClick="window.location='/board/writeForm.do'">
+				value="목록보기" OnClick="window.location='/huation/board/List.do'">
 			</td>
 		</tr>
 

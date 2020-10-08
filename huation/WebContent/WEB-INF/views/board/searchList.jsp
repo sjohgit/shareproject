@@ -115,13 +115,3 @@ table.type11 td {
 </c:if>
 </div>
 
-<%-- 		</td>
-				<td align="center" width="100">
-                   <c:if test="${a.re_level > 0}">
-                        <c:forEach begin="1" end="${a.re_level}">
-                            &nbsp;&nbsp; <!-- 답변글일경우 글 제목 앞에 공백을 준다. -->
-                        </c:forEach>
-                        RE : 
-                    </c:if>				
-				</td>
-				 --%>

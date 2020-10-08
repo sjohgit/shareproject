@@ -14,10 +14,15 @@
 			
 		<typeAlias type="huation.model.board.CommentDTO"
 			alias="CommentDTO" />
-				<typeAlias type="huation.model.aboard.AboardDTO"
-			alias="AboardDTO" />
+			
 		<typeAlias type="huation.model.aboard.AboardDTO"
 			alias="AboardDTO" />
+			
+		<typeAlias type="huation.model.aboard.AcommentDTO"
+			alias="AcommentDTO" />
+			<typeAlias type="huation.model.chart.ChartDTO"
+			alias="ChartDTO" />
+
 													
 	</typeAliases>
 

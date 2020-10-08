@@ -90,11 +90,7 @@ public class Hueboardbean {
 		String pageNum = request.getParameter("pageNum");
 		String keyword = request.getParameter("keyword");
 		String search_option = request.getParameter("search_option");
-		
-		System.out.println("ㅇ키워"+keyword);
-		System.out.println("ㅇ서ㅇㅂ"+search_option);
-		
-		
+				
 		if (pageNum == null) {
 			pageNum = "1";
 		}

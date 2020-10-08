@@ -12,7 +12,7 @@
 		// 서버로부터 채팅 내용을 받는 부분
 		var socket = io.connect("http://192.168.0.51:12345");  //서버연결 
 		socket.on('response', function(msg){// 서버로부터 채팅메세지를 계속 받고있다. .. 
-			$('#msgs').append(msg.msg+'<BR>');		// 채팅 메세지 받아 출력 부분..
+			$('#msgs').append(msg.id + msg.msg+'<BR>');		// 채팅 메세지 받아 출력 부분..
 		//	$('#msgs').append(msg.id+'<BR>');		// 채팅 메세지 받아 출력 부분..
 			/*파라미터로 넘어오는 id 값이 java인지 유효성 검사 
 			if(msg.id == 'java'){
@@ -21,7 +21,7 @@
 			*/
 		});
 		socket.on('aaa', function(msg){
-			$("h1").html(msg.id); // id만 출력
+			 /* $("h1").html(msg.id);  */     // id만 출력
 		});
 		
 		// 서버로 채팅 내용을 보내는 부분
@@ -35,12 +35,12 @@
 			// 'msg'가 VertxSample.java 파일의 socket.on을 찾아간다(보낼 곳의 이름)
 			// msg:msg의 앞 msg는 파라미터 이름. VertxSample.java 파일의 event.getString("msg"))에 파라미터값이 넘겨진다
 			// 1개가 아닌 2개의 파라미터값도 보낼 수 있다
-			socket.emit('msg',{msg:msg, id:"${sessionScope.memId}"});
+			socket.emit('msg',{msg:msg, id:"${sessionScope.memId}"+"님 :"});
 		});
 	});
 </script>
 </head>
-${sessionScope.memId}
+
 <!-- <body>
 	<h1>Main</h1>
 	<input type="text" id="chat" />
@@ -50,18 +50,22 @@ ${sessionScope.memId}
 </body> -->
 <body><br/>
 	
-	<h3 style="text-align:center;">Chat</h3>
+	<h3 align="center" >Chat</h3>
 	
 
 	
 	<!-- 채팅박스 -->
 		
 	<div id="chatScroll" style="width:40%; height:300px; overflow:auto; border:1px solid; margin: 0 30% 0 30%; border-radius: 10px;" >
-		<table id="msgs" width="100%" cellspacing="10" cellpadding="10"	></table>
+		<table id="msgs" width="100%" cellspacing="10" cellpadding="10"	align="center"></table>
 	</div>
-	
-	
-	<br />
+<table>
+<tr align ="right">
+	<td>접속중인회원:</td>
+	<td>${sessionScope.memId}</td>
+
+</tr>
+</table>	
 <table style="width:30%;" border="0" align="center">
 <tr>
 	<td><input type="text"  id="chat" size="40" tabindex="2"/></td>

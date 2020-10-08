@@ -6,12 +6,25 @@
 <mapper namespace="hueaboard">
    
    
-   <select id="find" resultType="int">  
-		select count(num) from SJ_hueaboard
+	<select id="find" resultType="int">  
+		SELECT COUNT(num) 
+		FROM 
+		SJ_hueaboard
 	</select>
 
 	<insert id="insert" parameterType="AboardDTO">  
-		insert into SJ_hueaboard values(SJ_hueaboard_seq.NEXTVAL,#{writer},#{subject},#{content},sysdate,#{readcount})
+		INSERT INTO
+		SJ_hueaboard
+		VALUES(
+		#{num},
+		#{writer},
+		#{subject},
+		#{content},
+		sysdate,
+		#{readcount},
+		#{ref},
+		#{re_step},
+		#{re_level})
 	</insert>
 	
 	<select id="amount" resultType="int"> 
@@ -19,12 +32,35 @@
 	</select>	
 	
 	<select id="boardlist" resultType="AboardDTO" parameterType="hashmap"> <!-- 게시물 나열하기 -->
-		 <![CDATA[select * from (select num,writer,subject,reg_date,content,readcount,rownum r from
+	
+		 <![CDATA[select * from (select num,writer,subject,reg_date,content,ref,re_step,readcount,rownum r from
+		(select * from SJ_hueaboard order by ref desc, re_step asc ) order by ref desc, re_step asc) where r>=#{start} and r<=#{end}]]>
+	</select>
+	<select id="aboardsearchlist" resultType="AboardDTO" parameterType="hashmap"> <!-- 검색게시물 나열하기 -->
+	
+		 <![CDATA[select * from (select num,writer,subject,reg_date,content,ref,re_step,readcount,rownum r from
 		(select * from SJ_hueaboard order by num desc) order by num desc) where r>=#{start} and r<=#{end}]]>
-	</select>   	
-
+		
+		<include refid="search" />
+            order by num desc 
+		</select>   	
+	 <sql id="search">
+        <choose><!-- 
+        //작성자+제목+내용의 검색조건으로 게시물을 검색하는 쿼리
+            --> <when test="search_option == 'all' ">
+                and writer like '%'||#{keyword}||'%'
+                      or content like '%' || #{keyword}||'%'
+                      or subject like '%'||#{keyword}||'%'   
+            </when>
+            
+            <otherwise>
+			<!--  //내가 지정한 조건 (작성자, 제목, 내용) 의 검색조건으로 게시물을 검색하는 쿼리 -->
+                and ${search_option} like '%'||#{keyword}||'%'
+                </otherwise>
+        </choose>
+    </sql>
 	<update id="addreadcount" parameterType="int"> <!-- 게시물 조회수 업데이트 -->
-		update SJ_hueaboard set readcount=readcount+1 where num=#{num}a
+		update SJ_hueaboard set readcount=readcount+1 where num=#{num}
 	</update>
 	
 	<select id="sel_notice" resultType="AboardDTO" parameterType="int">
@@ -38,5 +74,46 @@
 	<delete id="deletenotice" parameterType="int"> <!-- 삭제 -->
 		delete from SJ_hueaboard where num=#{num}
 	</delete>
+	<delete id="allcommentdelete" parameterType="int"> <!-- 게시물 삭제시 댓글삭제 -->
+		delete from SJ_hueaboardcomment where num=#{num}
+	</delete>
+	
  
+ 
+ <!-- 게시판에 대한 댓글 -->
+ 
+ 
+ <!-- 게시판에 대한 댓글 -->
+	<select id="findcomment" parameterType="int" resultType="int"> <!-- num값 메기기 -->
+		select count(renum) from SJ_hueaboardcomment where num=#{num}
+	</select>
+	
+	<insert id="commentinsert" parameterType="AcommentDTO"> <!-- 인서트 -->
+		insert into SJ_hueaboardcomment values(#{num},#{renum},#{writer},#{content},sysdate)
+	</insert>
+	  
+	<select id="commentamount" resultType="int"> <!-- 댓글의 갯수 표현 -->
+		select count(*) from SJ_hueaboardcomment 
+	</select>
+		<select id="commentlist" resultType="AcommentDTO" parameterType="hashmap">
+		<![CDATA[select * from (select num,renum,writer,content,reg_date,rownum r from
+		(select * from SJ_hueaboardcomment where num=#{num} order by renum desc) order by renum desc) where r>= #{start} and r <= #{end} and num=#{num} ]]>
+	</select>
+	
+	<delete id="deletecomment" parameterType="hashmap"> <!-- 삭제 -->
+		delete from SJ_hueaboardcomment where renum=#{renum} and num=#{num}
+	</delete>
+	<delete id="deletenotice2" parameterType="int"> <!-- num 게시판 댓글삭제 -->
+		delete from SJ_hueaboardcomment where num=#{num}
+	</delete>
+	
+	
+	
+	<!-- 답글쿼리 -->
+
+
+	
+	 <select id="updateRestep" resultType="int" parameterType="BoardDTO">  
+		select max(re_step) from SJ_hueaboard where ref=#{ref}
+	</select> 
 </mapper>

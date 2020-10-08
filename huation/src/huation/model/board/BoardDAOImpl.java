@@ -2,6 +2,8 @@ package huation.model.board;
 
 import java.util.List;
 
+import huation.model.chart.ChartDTO;
+
 
 
 public interface BoardDAOImpl {
@@ -12,6 +14,7 @@ public interface BoardDAOImpl {
 	public List<BoardDTO> noticelist(int start, int end);
 	public List<BoardDTO> searchnoticelist(int start, int end,String keyword, String search_option);
 	public List<BoardDTO> sel_notice(int num);
+	public List<ChartDTO> chart();
 	public int addreadcount(int num);
 	public void update(BoardDTO dto);
 	public void delete(int num);

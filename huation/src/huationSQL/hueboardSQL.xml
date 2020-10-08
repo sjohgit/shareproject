@@ -89,27 +89,27 @@
 
 <!-- 게시판에 대한 댓글 -->
 	<select id="findcomment" parameterType="int" resultType="int"> <!-- num값 메기기 -->
-		select count(renum) from hueboardcomment where num=#{num}
+		select count(renum) from SJ_hueboardcomment where num=#{num}
 	</select>
 	
 	<insert id="commentinsert" parameterType="CommentDTO"> <!-- 인서트 -->
-		insert into hueboardcomment values(#{num},#{renum},#{writer},#{content},sysdate)
+		insert into SJ_hueboardcomment values(#{num},#{renum},#{writer},#{content},sysdate)
 	</insert>
 	  
 	<select id="commentamount" resultType="int"> <!-- 댓글의 갯수 표현 -->
-		select count(*) from hueboardcomment 
+		select count(*) from SJ_hueboardcomment 
 	</select>
 	
 	<select id="commentlist" resultType="CommentDTO" parameterType="hashmap">
 		<![CDATA[select * from (select num,renum,writer,content,reg_date,rownum r from
-		(select * from hueboardcomment where num=#{num} order by renum desc) order by renum desc) where r>= #{start} and r <= #{end} and num=#{num} ]]>
+		(select * from SJ_hueboardcomment where num=#{num} order by renum desc) order by renum desc) where r>= #{start} and r <= #{end} and num=#{num} ]]>
 	</select>
 	
 	<delete id="deletecomment" parameterType="hashmap"> <!-- 삭제 -->
-		delete from hueboardcomment where renum=#{renum} and num=#{num}
+		delete from SJ_hueboardcomment where renum=#{renum} and num=#{num}
 	</delete>
 	<delete id="deleteinterview2" parameterType="int"> <!-- num 게시판 댓글삭제 -->
-		delete from hueboardcomment where num=#{num}
+		delete from SJ_hueboardcomment where num=#{num}
 	</delete>
 	
 	
@@ -120,5 +120,15 @@
 	
 	 <select id="updateRestep" resultType="int" parameterType="BoardDTO">  
 		select max(re_step) from SJ_hueboard where ref=#{ref}
-	</select> 
+	 </select> 
+	 
+	 <!-- 차트 -->
+	 <select id="chart" resultType = "ChartDTO">
+	  select count(*)as count,
+	  to_char(reg_date,'YYYY-MM-DD') 
+	  as reg_date
+ 	  from sj_hueboard 
+ 	  where reg_date BETWEEN '20200901' AND '20201101' group by to_char(reg_date,'YYYY-MM-DD')
+	 </select>
+	 
 </mapper>

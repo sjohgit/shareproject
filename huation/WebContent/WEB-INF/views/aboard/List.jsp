@@ -40,16 +40,23 @@ table.type11 td {
 	<b>AJAX게시판(전체글:${count})</b>
 </center>
 
-<table  >
-	<tr>
-		<td>
-			<a href=aboardwriteForm.huation>글쓰기</a>
-		</td>
-	</tr>
+<table>
+	<form name="search" method="post" action="/huation/aboard/searchList.do">
+
+    <select name="search_option">
+        <option value="subject" selected>제목</option>
+        <option value="writer" >작성자</option>
+        <option value="content" >내용</option> 
+        <option value="all" >작성자+내용+제목</option>      
+	</select>
+    <input name="keyword" type="search" required>
+    <input type="submit" value="조회">
+</form>
 </table>
 
-<c:if test="${count==0}">
-	<table class="type11" width="700" cellpadding="0" cellspacing="0" font-size= "12pt"
+
+<c:if test="${count==0}"> 
+	<table class="type11" width="1000" cellpadding="0" cellspacing="0" font-size= "12pt"
 		align="center">
 		<tr height="30">
 			<th align="left" width="50">번 호</th>
@@ -62,9 +69,21 @@ table.type11 td {
 			<td align="center" colspan="5">게시판에 저장된 글이 없습니다.</td>
 		</tr>
 		</table>
+	<c:if test="${sessionScope.memId !=null}">
+<table width="1000" cellpadding="0" cellspacing="0"
+		align="center">
+	<tr align="right">
+		<td align="right">
+			<a href="#" onclick="window.open('writeForm.do','window팝업','width=1000, height=1000,menubar=no,status=no,toolbar=no');">글쓰기</a>
+			
+		</td>
+	</tr>
+</table>
+	</c:if>		
+		
 </c:if>
 <c:if test="${count!=0}">
-	<table class="type11" width="700" cellpadding="0" cellspacing="0"
+	<table class="type11" width="1000" cellpadding="0" cellspacing="0"
 		align="center">
 		<tr height="30">
 			<th align="center" width="50">번 호</th>
@@ -78,25 +97,49 @@ table.type11 td {
 			<c:set var="number" value="${number}" />
 			<tr height="30">
 				<td align="center" width="50">${a.num}</td>
-				<td align="center" width="100">
-				<a href="aboardcontent.huation?num=${a.num}&pageNum=${currentPage}">${a.subject}</a>
+			<c:if test="${a.re_step == 0}">
+				<th align="left" width="100">
+					<a href="content.do?num=${a.num}&pageNum=${currentPage}"/>${a.subject}
+				</td>
+			</c:if>
+			<c:if test="${a.re_step > 0}">
+			 	<th align="left" width="100">
+			 		
+				<c:forEach begin="1" end="${a.re_step}">
+                            &nbsp;&nbsp; <!-- 답변글일경우 글 제목 앞에 공백을 준다. -->
+                 </c:forEach>
+                        <span>RE : </span><a href="content.do?num=${a.num}&pageNum=${currentPage}"/>${a.subject}
+                	
+                </td>        
+            </c:if>
 				<td align="center" width="150">${a.writer}</td>
 				<td align="center" width="100">${a.reg_date}</td>
 				<td align="center" width="50">${a.readcount}</td>
 			</tr>
 		</c:forEach>
 	</table>
+	<c:if test="${sessionScope.memId !=null}">
+<table width="1000" cellpadding="0" cellspacing="0"
+		align="center">
+	<tr align="right">
+		<td align="right">
+			<a href="#" onclick="window.open('writeForm.do','window팝업','width=1000, height=1000,menubar=no,status=no,toolbar=no');">글쓰기</a>
+			
+		</td>
+	</tr>
+</table>
+	</c:if>
 	<table align="center">
 		<c:if test="${count > 0}">
 			<tr>
 				<td><c:if test="${startPage > 10}">
 						<a
-							href="/huation/aboard/aboardList.huation?pageNum=${startPage-10}">[이전]</a>
+							href="/huation/aboard/List.do?pageNum=${startPage-10}">[이전]</a>
 					</c:if> <c:forEach var="b" begin="${startPage}" end="${endPage}" step="1">
-						<a href="/huation/aboard/aboardList.huation?pageNum=${b}">[${b}]</a>
+						<a href="/huation/aboard/List.do?pageNum=${b}">[${b}]</a>
 					</c:forEach> <c:if test="${endPage < pageCount}">
 						<a
-							href="/huation/aboard/aboardList.huation?pageNum=${startPage+10}">[다음]</a>
+							href="/huation/aboard/List.do?pageNum=${startPage+10}">[다음]</a>
 					</c:if></td>
 			</tr>
 		</c:if>
