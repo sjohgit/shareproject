@@ -15,7 +15,7 @@ public class BoardDAO implements BoardDAOImpl{
 		this.sqlSession = sqlSession;
 	}
 	@Override
-	public void insert(BoardDTO dto) {
+	public int insert(BoardDTO dto) {
 		int num = 0;
 		num = sqlSession.selectOne("hueboard.find");
 		
@@ -30,7 +30,7 @@ public class BoardDAO implements BoardDAOImpl{
 		dto.setNum(num);
 		dto.setRef(num);
 		
-		sqlSession.insert("hueboard.insert",dto);
+		return sqlSession.insert("hueboard.insert",dto);
 	}
 	@Override
 	public int foundre_step(int ref) {

@@ -30,6 +30,18 @@ table.type11 td {
 	
 }
 </style>
+
+<script language="javascript">
+function a(){
+	alert("a")
+	 /* window.open('writeForm.do','window팝업','width=500, height=500,menubar=no,status=no,toolbar=no');  */
+	window.open('writeForm.do','','_blank'); 
+	
+}
+
+
+
+</script>
 </head>
 
 <title>게시판</title>
@@ -68,18 +80,17 @@ table.type11 td {
 		<tr height="30">
 			<td align="center" colspan="5">게시판에 저장된 글이 없습니다.</td>
 		</tr>
-		</table>
-	<c:if test="${sessionScope.memId !=null}">
-<table width="1000" cellpadding="0" cellspacing="0"
+	</table>
+<c:if test="${sessionScope.memId !=null}">
+	<table width="1000" cellpadding="0" cellspacing="0"
 		align="center">
-	<tr align="right">
-		<td align="right">
-			<a href="#" onclick="window.open('writeForm.do','window팝업','width=1000, height=1000,menubar=no,status=no,toolbar=no');">글쓰기</a>
-			
-		</td>
-	</tr>
-</table>
-	</c:if>		
+		<tr align="right">
+			<td align="right">
+				<a href="javascript:a();">글쓰기</a>
+			</td>
+		</tr>
+	</table>
+</c:if>		
 		
 </c:if>
 <c:if test="${count!=0}">
@@ -99,8 +110,9 @@ table.type11 td {
 				<td align="center" width="50">${a.num}</td>
 			<c:if test="${a.re_step == 0}">
 				<th align="left" width="100">
-					<a href="content.do?num=${a.num}&pageNum=${currentPage}"/>${a.subject}
-				</td>
+					<a href="content.do?num=${a.num}&pageNum=${currentPage}">${a.subject}</a>
+				</th>
+				
 			</c:if>
 			<c:if test="${a.re_step > 0}">
 			 	<th align="left" width="100">
@@ -108,9 +120,9 @@ table.type11 td {
 				<c:forEach begin="1" end="${a.re_step}">
                             &nbsp;&nbsp; <!-- 답변글일경우 글 제목 앞에 공백을 준다. -->
                  </c:forEach>
-                        <span>RE : </span><a href="content.do?num=${a.num}&pageNum=${currentPage}"/>${a.subject}
+                        <span>RE : </span><a href="content.do?num=${a.num}&pageNum=${currentPage}">${a.subject}</a>
                 	
-                </td>        
+                </th>        
             </c:if>
 				<td align="center" width="150">${a.writer}</td>
 				<td align="center" width="100">${a.reg_date}</td>
@@ -123,7 +135,7 @@ table.type11 td {
 		align="center">
 	<tr align="right">
 		<td align="right">
-			<a href="#" onclick="window.open('writeForm.do','window팝업','width=1000, height=1000,menubar=no,status=no,toolbar=no');">글쓰기</a>
+			<a href="javascript:a();">글쓰기</a>
 			
 		</td>
 	</tr>

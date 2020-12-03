@@ -16,7 +16,7 @@
 	<bean id="dataSource"
 		class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close"
 		p:driverClassName="oracle.jdbc.driver.OracleDriver"
-		p:url="jdbc:oracle:thin:@192.168.0.52:1521:orcl"
-		p:username="sjoh" p:password="sjo9748" />
+		p:url="jdbc:oracle:thin:@nullmaster.iptime.org:1521:orcl"
+		p:username="class05" p:password="class05" />
 		
 </beans>

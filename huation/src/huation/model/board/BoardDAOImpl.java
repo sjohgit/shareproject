@@ -7,7 +7,7 @@ import huation.model.chart.ChartDTO;
 
 
 public interface BoardDAOImpl {
-	public void insert(BoardDTO dto);
+	public int insert(BoardDTO dto);
 	public void replyinsert(BoardDTO dto);
 	public void excelinsert(BoardDTO dto);
 	public int noticecount();

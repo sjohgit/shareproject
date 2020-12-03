@@ -1,19 +1,15 @@
-
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ include file = "/WEB-INF/views/member/huationMain.jsp" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
+         pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page session="true" %>
+<html>
+<head>
+    <title>알림창</title>
+</head>
+<body>
 <script>
-	<c:if test="${check == 1}">
-		alert("안녕하세요.");
-		document.location.href = '/huation/huation.do';
-	</c:if>
-	
-<c:if test="${check == 0}">
-	
-			alert("아이디 또는 비밀번호를 확인해주세요.");
-			history.go(-1);
-		
-</c:if>
+    alert('${msg}');
+    location.href='<c:out value="${pageContext.request.contextPath}"/>${url}';
 </script>
+</body>
+</html>

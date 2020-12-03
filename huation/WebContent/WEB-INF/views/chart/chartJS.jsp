@@ -1,48 +1,41 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
+<%@ include file = "/WEB-INF/views/member/huationMain.jsp" %>
 <!DOCTYPE html>
 
 <html>
-<head>
+
+
 
 <title>chartJS</title>
+
+<body>
 <link rel='Stylesheet' href='/myweb/resources/css/default.css' />
 <style>
 	#chart-container {
 		float: right;
-		position: relative;
-		left: -50%;
+		position: center;
+		left: -50;
 	}
 	canvas {
-	    float: left;
+	    float: right;
 	    width: 40%;
-	    position: relative;
-	    left: 60%;
+	    position: right;
+	    left: -30%;
 	}
 </style>
-</head>
 
-<body>
-
-
-	<div id='pageContainer'>
-
-		
-
-		<div id='content'>
-			<br /><br /><br />
 			<h1>게시물데이터그래프화</h1>
-			<br /><br /><br />
-			<div id="chart-container">
-				<canvas id="myChart"></canvas>
+			
+			
+				<canvas id="myChart" align="center"></canvas>
 				<canvas id="myChart2"></canvas>
 				<canvas id="myChart3"></canvas>
 				<canvas id="myChart4"></canvas>
-			</div>
-		</div>
-	</div>
+			
+		
+	
 	
 	<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
@@ -117,7 +110,9 @@
 			
 		});
 	</script>
-</body>
 
+
+
+</body>
 </html>
 

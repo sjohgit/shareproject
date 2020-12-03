@@ -34,6 +34,7 @@
 		<mapper resource="/huationSQL/hueboardSQL.xml" />
 		<mapper resource="/huationSQL/hueaboardSQL.xml" />
 		<mapper resource="/huationSQL/huememberSQL.xml" />
+		<mapper resource="/huationSQL/huedatatableSQL.xml" />
 	</mappers>
 
 

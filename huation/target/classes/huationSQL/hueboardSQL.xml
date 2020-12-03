@@ -128,7 +128,7 @@
 	  to_char(reg_date,'YYYY-MM-DD') 
 	  as reg_date
  	  from sj_hueboard 
- 	  where reg_date BETWEEN '20200901' AND '20201101' group by to_char(reg_date,'YYYY-MM-DD')
+ 	  where reg_date BETWEEN '20200901' AND '2099-10-10' group by to_char(reg_date,'YYYY-MM-DD')
 	 </select>
 	 
 </mapper>

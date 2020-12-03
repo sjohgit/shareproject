@@ -14,6 +14,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -31,6 +33,7 @@ import huation.model.board.CommentDTO;
 
 @Controller
 @RequestMapping("/board")
+@Component
 
 public class Hueboardbean {
 	
@@ -187,49 +190,59 @@ public class Hueboardbean {
 			
 		}
 	return "/board/content";
-}
+	
+}	
+	
+	
 	@RequestMapping("/writeForm.do")
 	public String writeForm() {
-
+		
+		System.out.println("스케쥴링테스트"); 
 	return "/board/writeForm";
 }
+	//@Scheduled(fixedDelay=10000)
 	@RequestMapping("/writePro.do")
-	public String writePro(HttpServletRequest request,HttpSession session,MultipartHttpServletRequest request1) {
+	public String writePro() {
 		BoardDTO dto = new BoardDTO();
-		String writer = (String)session.getAttribute("memId");
+		//String writer = (String)session.getAttribute("memId");
 		
-		String subject = request.getParameter("subject");
-		String content = request.getParameter("content");
+		//String subject = request.getParameter("subject");
+		//String content = request.getParameter("content");
 		
-		MultipartFile file = request1.getFile("files");
+		// MultipartFile file = request1.getFile("files");
 		
 		// 파일원본 이름
-		String orgName = file.getOriginalFilename();
+		//String orgName = file.getOriginalFilename();
 
 		// 확장자 따옴.	
-		String ext = orgName.substring(orgName.lastIndexOf(".") + 1);
+	//	String ext = orgName.substring(orgName.lastIndexOf(".") + 1);
 				
 		// 경로설정
-		String files = request1.getSession().getServletContext().getRealPath("User/board/files");
-		System.out.println("파일즈  "+files);
+		//String files = request1.getSession().getServletContext().getRealPath("User/board/files");
+		//System.out.println("파일즈  "+files);
 
-		String fileName = orgName;
+		//String fileName = orgName;
 		// files라는 폴더없으면 폴더 생성
-		File folder = new File(files);
-		if (!folder.exists()) {
-			folder.mkdir();
-		}
+		//File folder = new File(files);
+		//if (!folder.exists()) {
+		//	folder.mkdir();
+	//	}
 		
-		File orgfile = new File (fileName);
-		System.out.println("파일라이트 "+orgfile);
+		//File orgfile = new File (fileName);
+		//System.out.println("파일라이트 "+orgfile);
 		
 	
-		try {
-			file.transferTo(orgfile);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	
+		//try {
+		//	file.transferTo(orgfile);
+		//} catch (Exception e) {
+		//	e.printStackTrace();
+		//}
+		String fileName = "Filename";
+		String writer = "1234";
+		String subject = "Subject";
+		String content = "content";
+		
+		
 		dto.setWriter(writer);
 		dto.setFiles(fileName);
 		dto.setSubject(subject);
@@ -237,8 +250,9 @@ public class Hueboardbean {
 		
 		
 			dao.insert(dto);
-			
-	return "/board/writePro";
+		 
+			//return "/board/writePro";
+			return "redirect:/board/List.do";
 }
 	
 	@RequestMapping("/filedownloadPro.do")
@@ -467,21 +481,18 @@ public class Hueboardbean {
 			if(file1.exists()) {
 				file1.delete();
 		}
-}
-		
-		
-		
-		
-		
+
 		dto.setNum(num);
 		dto.setWriter(writer);
 		dto.setSubject(subject);
 		dto.setContent(content);
 		dao.update(dto);
+		}
 
 		request.setAttribute("pageNum", pageNum);
 		request.setAttribute("num", num);		
-	return "/board/updatePro";
+	//return "/board/updatePro";
+		return "redirect:/board/List.do";
 }
 	@RequestMapping("/deleteForm.do")
 	public String deleteForm(HttpServletRequest request) {
@@ -500,7 +511,8 @@ public class Hueboardbean {
 		request.setAttribute("num", num);
 
 		dao.delete(num);		
-	return "/board/deletePro";
+	//return "/board/deletePro";
+		return "redirect:/board/List.do";
 }
 	@RequestMapping("/downExcelForm.do")
 	public String downExcelForm (HttpServletRequest request,BoardDTO dto)throws Exception {

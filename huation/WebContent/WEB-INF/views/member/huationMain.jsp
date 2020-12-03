@@ -95,7 +95,7 @@ a:hover{color:black; text-decoration: none;}
   <br/>
 </header>
 
-<section>
+<body>
   <nav>
     <ul>
     <li>▶메뉴</li><br/>
@@ -110,8 +110,11 @@ a:hover{color:black; text-decoration: none;}
         <br/>
    	  <li>●채팅기능</li>
       <li><a href="/huation/chat/chat.do">채팅하기</a></li>
+              <br/>
+   	  <li>●datatable</li>
+      <li><a href="/huation/datatable/list.do">데이터테이블</a></li>
  
     </ul>
   </nav>
   <h1 align = "center">${serverTime }</h1>
-
+</body>

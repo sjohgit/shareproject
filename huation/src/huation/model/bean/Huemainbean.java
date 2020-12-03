@@ -1,15 +1,18 @@
 package huation.model.bean;
 
-import java.text.SimpleDateFormat;
+
+import java.io.PrintWriter;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
+
 import org.springframework.web.bind.annotation.RequestMapping;
+
 
 import huation.model.member.MemberDAO;
 import huation.model.member.MemberDTO;
@@ -59,7 +62,7 @@ import huation.model.member.MemberDTO;
 		return "/member/huelogin";
 	}
 		@RequestMapping("/hueloginPro.do")
-		public String hueloginPro(HttpServletRequest request,HttpSession session,MemberDTO dto) {
+		public String hueloginPro(HttpServletRequest request,HttpServletResponse response,HttpSession session,MemberDTO dto) throws Exception {
 			String id = request.getParameter("id");
 			String pw = request.getParameter("pw");
 			dto.setId(id);
@@ -68,17 +71,30 @@ import huation.model.member.MemberDTO;
 			int check = dao.logincheck(dto);
 			System.out.println(check);
 			
+//			PrintWriter writer = response.getWriter();
+			
+			request.setAttribute("check", check);
+		
 		if(check==1) {
+		
 			
 			session.setAttribute("memId", dto.getId());
 			
 			request.setAttribute("memId",dto.getId());
+			
+			
+//			response.setContentType("text/html; charset=UTF-8");
+//			writer.println("<script>alert('안녕하세요!'); location.href='/huation/huation.do';</script>");
+//			writer.flush();
+//			return "redirect:/huation.do"; 
+			return "redirect:/huation.do"; 
+			
+		}else {
+			return "redirect:/member/huelogin.do"; 
+		}
+		
 		}
 	
-			request.setAttribute("check", check);
-
-		return "/member/hueloginPro";
-	}
 		@RequestMapping("/hueloginMain.do")
 		public String hueloginMain(HttpServletRequest request) {
 

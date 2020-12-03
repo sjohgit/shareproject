@@ -38,7 +38,7 @@ table.type11 td {
 
 <div align="center">
 <center>
-	<b>공지사항(전체글:${count})</b>
+	<b>게시판(전체글:${count})</b>
 </center>
 
 <c:if test="${sessionScope.memId !=null}">

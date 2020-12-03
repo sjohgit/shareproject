@@ -2,6 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -10,9 +11,9 @@
 <script>
 	$(document).ready(function() {
 		// 서버로부터 채팅 내용을 받는 부분
-		var socket = io.connect("http://192.168.0.51:12345");  //서버연결 
+		var socket = io.connect("http://172.20.10.4:12345");  //서버연결 
 		socket.on('response', function(msg){// 서버로부터 채팅메세지를 계속 받고있다. .. 
-			$('#msgs').append(msg.id + msg.msg+'<BR>');		// 채팅 메세지 받아 출력 부분..
+			$('#msgs').append(msg.id + msg.msg + /* mmm+ */'<BR>');		// 채팅 메세지 받아 출력 부분..
 		//	$('#msgs').append(msg.id+'<BR>');		// 채팅 메세지 받아 출력 부분..
 			/*파라미터로 넘어오는 id 값이 java인지 유효성 검사 
 			if(msg.id == 'java'){
@@ -25,7 +26,7 @@
 		});
 		
 		// 서버로 채팅 내용을 보내는 부분
-		// 텍스트박스내부의 채팅 내용 보내기
+		// 텍스트박스내부의 채팅 내용 보내기   
 		$("#sendBtn").bind("click", function() {	
 		//	var msg = $("input[name=chat]").val();
 			// id 속성은 css를 사용하기 위해 쓴다 (name 속성은 jsp에서 파라미터를 처리하기 위해 쓴다)
@@ -68,7 +69,7 @@
 </table>	
 <table style="width:30%;" border="0" align="center">
 <tr>
-	<td><input type="text"  id="chat" size="40" tabindex="2"/></td>
+	<td><input type="text"  id="chat" size="40"  tabindex="2"/></td>
 		
 	<td><input type="button"value="send" id="sendBtn" tabindex="3" /></td><br />
 </tr>

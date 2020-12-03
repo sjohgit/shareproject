@@ -28,7 +28,9 @@ public class Chatbean extends DefaultEmbeddableVerticle {
 				
 				// 채팅이 들어올 때마다 계속 실행
 				socket.on("msg", new Handler<JsonObject>() {
-					public void handle(JsonObject event) {
+					public void handle(JsonObject event) {	
+						
+//						System.out.println("handler ::: " +	event.putString("mmm", "1111"));
 						System.out.println("handler ::: " + event.getString("msg"));
 						System.out.println("handler ::: " + event.getString("id"));
 						// 'response'가 main.jsp 파일의 socket.on을 찾아간다(보낼 곳의 이름)

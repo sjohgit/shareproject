@@ -2,6 +2,9 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ include file = "//WEB-INF/views/member/huationMain.jsp" %>
+<script language ='javascript'>
+	window.setTimeout('window.location.reload()',10000);
+</script>
 <title>게시판</title>
 
 <head>
@@ -79,7 +82,6 @@ table.type11 td {
 				value="목록보기" OnClick="window.location='/huation/board/List.do'">
 			</td>
 		</tr>
-
 	</table>
 </form>
 </div>

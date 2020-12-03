@@ -7,25 +7,25 @@
 <mapper namespace="huemember">
 
 	<insert id="insert" parameterType = "MemberDTO">
-		insert into huemember values(#{id},#{pw},#{checkpw},#{name},#{phone},#{email})
+		insert into sj_huemember values(#{id},#{pw},#{checkpw},#{name},#{phone},#{email})
 	</insert>
 	
 	<select id="checkmember" parameterType = "String" resultType = "int">
-		select count(*) from huemember where id=#{id}
+		select count(*) from sj_huemember where id=#{id}
 	</select>
 	
 	<select id="logincheck" parameterType ="MemberDTO" resultType="int">
-		select count(*) from huemember where id=#{id} and pw=#{pw}
+		select count(*) from sj_huemember where id=#{id} and pw=#{pw}
 	</select>
 	
 	<!-- 개인정보수정 -->
 	
 	<select id="sel_member" parameterType="String" resultType="MemberDTO">
-		select * from huemember where id=#{id}
+		select * from sj_huemember where id=#{id}
 	</select>
 	
 	<update id="memberupdate" parameterType="MemberDTO">
-		update huemember set pw=#{pw},checkpw=#{checkpw},name=#{name},
+		update sj_huemember set pw=#{pw},checkpw=#{checkpw},name=#{name},
 		phone=#{phone},email=#{email} where id=#{id}
 	</update>	
 
